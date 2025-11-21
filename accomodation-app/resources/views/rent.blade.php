@@ -87,8 +87,8 @@
         </div>
         <div
             class="container mx-auto mt-10 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
-            <div class="text-sm">&copy; {{ date('Y') }} Vacation Rental. All rights reserved.</div>
-            <div class="text-sm md:text-right">Designed by VillaVeroh</div>
+            <div class="text-sm">&copy; {{ date('Y') }} VillaVeh. All rights reserved.</div>
+            <div class="text-sm md:text-right">Designed by Daniel Maina</div>
         </div>
     </footer>
 </x-guest-layout>

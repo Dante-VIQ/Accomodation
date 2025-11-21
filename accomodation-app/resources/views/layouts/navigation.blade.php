@@ -5,8 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                    <a href="{{ route('dashboard') }}" class="text-3xl my-2 md:text-3xl font-bold text-gray-600 uppercase">
+                        <span
+                                class="text-emerald-600">Villa</span>Veh
                     </a>
                 </div>
 
@@ -31,9 +32,9 @@
                         {{ __('About') }}
                     </x-nav-link>
                     {{-- @role('master') --}}
-                        <x-nav-link href="Admin/index" :active="request()->routeIs('Admin.index')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
+                    <x-nav-link href="Admin/index" :active="request()->routeIs('Admin.index')">
+                        {{ __('Admin') }}
+                    </x-nav-link>
                     {{-- @endrole --}}
                 </div>
             </div>
