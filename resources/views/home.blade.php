@@ -6,7 +6,7 @@
             <div class="w-full max-w-4xl text-white">
                 <h2 class="text-2xl font-light mb-2">Welcome to VillaVeh</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6">Book an appartment for your vacation</h1>
-                <div  x-data="{ open: false }" class="lg:flex block space-x-4">
+                <div  x-data="{ open: false }" class="lg:flex block space-x-4 gap-3">
                     <a href="#" class="hidden sm:flex btn-primary">Learn more</a>
                     <button type="submit" class="lg:hidden block btn-primary">
                         Book Now
