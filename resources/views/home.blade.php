@@ -4,7 +4,7 @@
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 mx-auto">
         <div class="container h-full flex relative z-10 p-20 justify-center">
             <div class="w-full max-w-4xl text-white">
-                <h2 class="text-2xl font-light mb-2">Welcome to VillaVeroh</h2>
+                <h2 class="text-2xl font-light mb-2">Welcome to VillaVeh</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6">Book an appartment for your vacation</h1>
                 <div  x-data="{ open: false }" class="lg:flex block space-x-4">
                     <a href="#" class="hidden sm:flex btn-primary">Learn more</a>
