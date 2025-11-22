@@ -249,7 +249,7 @@
 <footer class="bg-gray-900 text-white py-10 p-5">
     <div class="container mx-auto grid md:grid-cols-4 gap-8">
         <div>
-            <h2 class="text-xl font-bold mb-2"><a href="#" class="logo">Vacation Rental</a></h2>
+            <h2 class="text-xl font-bold mb-2"><a href="#" class="logo">VillaVeh</a></h2>
             <p class="mb-2">A small river named Duden flows by their place and supplies it with the necessary
                 regelialia.</p>
             <a href="#" class="text-emerald-400">Read more <span
