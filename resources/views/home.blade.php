@@ -2,11 +2,11 @@
 <div class="relative min-h-screen bg-cover bg-center" style="background-image: url('images/bg_1.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 mx-auto">
-        <div class="container h-full flex relative z-10 p-20 justify-center">
+        <div class="container h-full flex relative z-10 p-20 justify-between">
             <div class="w-full max-w-4xl text-white">
-                <h2 class="text-2xl font-light mb-2">Welcome to VillaVeroh</h2>
+                <h2 class="sm:text-2xl text-lg font-light mb-2">Welcome to VillaVeh</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6">Book an appartment for your vacation</h1>
-                <div  x-data="{ open: false }" class="lg:flex block space-x-4">
+                <div  x-data="{ open: false }" class="sm:flex block gap-3">
                     <a href="#" class="hidden sm:flex btn-primary">Learn more</a>
                     <button type="submit" class="lg:hidden block btn-primary">
                         Book Now
@@ -249,7 +249,7 @@
 <footer class="bg-gray-900 text-white py-10 p-5">
     <div class="container mx-auto grid md:grid-cols-4 gap-8">
         <div>
-            <h2 class="text-xl font-bold mb-2"><a href="#" class="logo">Vacation Rental</a></h2>
+            <h2 class="text-xl font-bold mb-2"><a href="#" class="logo">VillaVeh</a></h2>
             <p class="mb-2">A small river named Duden flows by their place and supplies it with the necessary
                 regelialia.</p>
             <a href="#" class="text-emerald-400">Read more <span
