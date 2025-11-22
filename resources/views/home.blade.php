@@ -2,7 +2,7 @@
 <div class="relative min-h-screen bg-cover bg-center" style="background-image: url('images/bg_1.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 mx-auto">
-        <div class="container h-full flex relative z-10 p-20 justify-center">
+        <div class="container h-full flex relative z-10 p-20 justify-between">
             <div class="w-full max-w-4xl text-white">
                 <h2 class="sm:text-2xl text-lg font-light mb-2">Welcome to VillaVeh</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6">Book an appartment for your vacation</h1>
