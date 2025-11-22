@@ -5,9 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" class="text-3xl my-2 md:text-3xl font-bold text-gray-600 uppercase">
-                        <span
-                                class="text-emerald-600">Villa</span>Veh
+                    <a href="{{ route('dashboard') }}"
+                        class="text-3xl my-2 md:text-3xl font-bold text-gray-600 uppercase">
+                        <span class="text-emerald-600">Villa</span>Veh
                     </a>
                 </div>
 
@@ -19,22 +19,22 @@
                     <x-nav-link href="rent" :active="request()->routeIs('rent')">
                         {{ __('Rooms') }}
                     </x-nav-link>
-                    {{-- <x-nav-link href="services" :active="request()->routeIs('services')">
+                    <x-nav-link href="services" :active="request()->routeIs('services')">
                         {{ __('Services') }}
-                    </x-nav-link> --}}
+                    </x-nav-link>
                     <x-nav-link href="blog" :active="request()->routeIs('blog')">
                         {{ __('Blog') }}
                     </x-nav-link>
                     <x-nav-link href="contact" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>
-                    <x-nav-link href="about" :active="request()->routeIs('About')">
+                    {{-- <x-nav-link href="about" :active="request()->routeIs('About')">
                         {{ __('About') }}
-                    </x-nav-link>
+                    </x-nav-link> --}}
                     {{-- @role('master') --}}
-                    <x-nav-link href="Admin/index" :active="request()->routeIs('Admin.index')">
-                        {{ __('Admin') }}
-                    </x-nav-link>
+                        <x-nav-link href="Admin/index" :active="request()->routeIs('Admin.index')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
                     {{-- @endrole --}}
                 </div>
             </div>
@@ -103,6 +103,21 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('rent')" :active="request()->routeIs('rent')">
+                {{ __('Rooms') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('blog')" :active="request()->routeIs('blog')">
+                {{ __('Blog') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                {{ __('Contact') }}
+            </x-responsive-nav-link>
+                    {{-- @role('master') --}}
+
+            <x-responsive-nav-link :href="route('Admin/index')" :active="request()->routeIs('Admin/index')">
+                {{ __('Admin') }}
+            </x-responsive-nav-link>
+            {{-- @endrole --}}
         </div>
         <!-- Responsive Settings Options -->
         @auth
