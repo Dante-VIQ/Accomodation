@@ -49,5 +49,24 @@ class AppServiceProvider extends ServiceProvider
             }
         }
     }
+
+     // ✔ Assign default user role to everyone else
+    User::created(function ($user) {
+        $defaultRole = env('DEFAULT_ROLE', 'user');
+
+        // Don't override engineer or master emails
+        if ($user->email === env('ENGINEER_EMAIL')) {
+            return;
+        }
+
+        if (collect(explode(',', env('MASTER_EMAILS', '')))
+            ->map(fn($e) => trim($e))
+            ->contains($user->email)) {
+            return;
+        }
+
+        // Assign default role
+        $user->assignRole($defaultRole);
+    });
     }
 }

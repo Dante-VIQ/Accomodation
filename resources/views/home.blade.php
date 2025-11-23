@@ -6,13 +6,12 @@
             <div class="w-full max-w-4xl text-white">
                 <h2 class="sm:text-2xl text-lg font-light mb-2">Welcome to VillaVeh</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6">Book an appartment for your vacation</h1>
-                <div  x-data="{ open: false }" class="sm:flex block gap-3">
-                    <a href="#" class="hidden sm:flex btn-primary">Learn more</a>
-                    <button type="submit" class="lg:hidden block btn-primary">
-                        Book Now
-
-                    </button>
-                    <a href="#" class="btn-white">Contact us</a>
+                <div  x-data="{ open: false }" class="flex sm:block gap-4">
+                        <a href="#" class="hidden sm:block btn-primary mr-4">Learn more</a>
+                        <button type="submit" class="lg:hidden btn-primary mr-4">
+                            Book Now
+                        </button>
+                        <a href="#" class="btn-white">Contact us</a>
                 </div>
             </div>
         </div>

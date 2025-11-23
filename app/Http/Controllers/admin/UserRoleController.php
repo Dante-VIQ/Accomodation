@@ -14,10 +14,14 @@ class UserRoleController extends Controller
      */
     public function index()
     {
-        return view('admin.user.roles.index', [
-            'users' => User::with('roles')->get(),
-            'roles' => Role::all(),
-        ]);
+        $users = User::whereDoesntHave('roles', function ($query) {
+            $query->where('name', 'engineer');
+        })->paginate(15);
+        
+  return view('admin.user.roles.index', [
+    'users' => $users,
+    'roles' => Role::all(),
+]);
     }
 
     /**

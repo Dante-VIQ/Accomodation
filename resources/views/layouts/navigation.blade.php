@@ -100,21 +100,21 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link href="dashboard" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="route('rent')" :active="request()->routeIs('rent')">
+            <x-responsive-nav-link href="rent" :active="request()->routeIs('rent')">
                 {{ __('Rooms') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="route('blog')" :active="request()->routeIs('blog')">
+            <x-responsive-nav-link href="blog" :active="request()->routeIs('blog')">
                 {{ __('Blog') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="route('contact')" :active="request()->routeIs('contact')">
+            <x-responsive-nav-link href="contact" :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
                     {{-- @role('master') --}}
 
-            <x-responsive-nav-link href="route('Admin/index')" :active="request()->routeIs('Admin/index')">
+            <x-responsive-nav-link href="Admin/index" :active="request()->routeIs('Admin/index')">
                 {{ __('Admin') }}
             </x-responsive-nav-link>
             {{-- @endrole --}}
