@@ -3,46 +3,81 @@
     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 mx-auto">
         <div class="container h-full flex relative z-10 p-20 justify-between">
-            <div class="w-full max-w-4xl text-white">
-                <h2 class="sm:text-2xl text-lg font-light mb-2">Welcome to VillaVeh</h2>
-                <h1 class="sm:text-4xl text-2xl font-bold mb-6">Book an appartment for your vacation</h1>
-                <div  x-data="{ open: false }" class="flex flex-wrap sm:gap-4 gap-2">
-                        <a href="#" class="hidden sm:flex btn-primary mr-4">Learn more</a>
-                        <button type="submit" class="lg:hidden btn-primary mr-4">
-                            Book Now
-                        </button>
-                        <a href="#" class="btn-white">Contact us</a>
+            <div class="w-full max-w-4xl">
+                <h2 class="sm:text-2xl text-lg font-light mb-2 text-white">Welcome to VillaVeh</h2>
+                <h1 class="sm:text-4xl text-2xl font-bold mb-6 text-white">Book an appartment for your vacation</h1>
+                <div class="flex flex-wrap sm:gap-4 gap-2">
+                    <a href="#" class="hidden sm:flex btn-primary mr-4 text-white">Learn more</a>
+                    
+                    <livewire:booking-form />
+                    <a href="#" class="btn-white">Contact us</a>
                 </div>
             </div>
         </div>
         <div class="hidden container mx-auto lg:flex justify-end p-10">
             <div class="w-full max-w-lg bg-gray-50 rounded-lg shadow p-8 justify-end bg-opacity-70 relative z-10">
-                <form action="#" class="space-y-6">
+                <form wire:submit.prevent="submit" class="space-y-6">
                     <h3 class="text-2xl font-semibold mb-4">Book your apartment</h3>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" class="input" placeholder="Full Name" />
-                        <input type="text" class="input" placeholder="Phone number" />
-                        <input type="date" class="input" placeholder="Check-In" />
-                        <input type="date" class="input" placeholder="Check-Out" />
-                        <select class="input">
-                            <option>Adults</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+
+                        <input type="text" wire:model="full_name" class="input" placeholder="Full Name">
+                        @error('full_name')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
+
+                        <input type="text" wire:model="phone" class="input" placeholder="Phone number">
+                        @error('phone')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
+
+                        <input type="date" wire:model="check_in" class="input" placeholder="Check-In">
+                        @error('check_in')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
+
+                        <input type="date" wire:model="check_out" class="input" placeholder="Check-Out">
+                        @error('check_out')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
+
+                        <select wire:model="adults" class="input">
+                            <option value="">Adults</option>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
                         </select>
-                        <select class="input">
-                            <option>Children</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                        @error('adults')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
+
+                        <select wire:model="children" class="input">
+                            <option value="">Children</option>
+                            @for ($i = 0; $i <= 5; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
                         </select>
-                        <input type="text" class="input" placeholder="Time" />
+
+                        <select wire:model="room_id" class="input">
+                            <option value="">Select Room</option>
+                            @foreach (\App\Models\Room::all() as $room)
+                                <option value="{{ $room->id }}">{{ $room->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('children')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
+
+                        <input type="text" wire:model="time" class="input" placeholder="Time (optional)">
+                        @error('time')
+                            <p class="text-red-600 text-sm">{{ $message }}</p>
+                        @enderror
+
                     </div>
-                    <button type="submit" class="btn-primary w-full py-3">Book Appartment Now</button>
+
+                    <button type="submit" class="btn-primary w-full py-3 bg-teal-600 text-white rounded-lg">
+                        Book Apartment Now
+                    </button>
                 </form>
             </div>
         </div>
@@ -118,55 +153,17 @@
 <livewire:room-card />
 
 <!-- Testimonial Section -->
-<section class="py-16 bg-gray-100">
-    <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-10">Happy Clients &amp; Feedbacks</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white rounded-lg p-6 shadow text-center flex flex-col items-center">
-                <img src="images/person_1.jpg" class="w-20 h-20 rounded-full mb-4" alt="Racky Henderson" />
-                <p class="text-gray-700 italic mb-4">Far far away, behind the word mountains, far from the countries
-                    Vokalia and Consonantia, there live the blind texts.</p>
-                <div class="font-bold">Racky Henderson</div>
-                <span class="text-sm text-gray-500">Father</span>
-            </div>
-            <div class="bg-white rounded-lg p-6 shadow text-center flex flex-col items-center">
-                <img src="images/person_2.jpg" class="w-20 h-20 rounded-full mb-4" alt="Henry Dee" />
-                <p class="text-gray-700 italic mb-4">Far far away, behind the word mountains, far from the countries
-                    Vokalia and Consonantia, there live the blind texts.</p>
-                <div class="font-bold">Henry Dee</div>
-                <span class="text-sm text-gray-500">Businesswoman</span>
-            </div>
-            <div class="bg-white rounded-lg p-6 shadow text-center flex flex-col items-center">
-                <img src="images/person_3.jpg" class="w-20 h-20 rounded-full mb-4" alt="Mark Huff" />
-                <p class="text-gray-700 italic mb-4">Far far away, behind the word mountains, far from the countries
-                    Vokalia and Consonantia, there live the blind texts.</p>
-                <div class="font-bold">Mark Huff</div>
-                <span class="text-sm text-gray-500">Businesswoman</span>
-            </div>
-            <div class="bg-white rounded-lg p-6 shadow text-center flex flex-col items-center">
-                <img src="images/person_4.jpg" class="w-20 h-20 rounded-full mb-4" alt="Rodel Golez" />
-                <p class="text-gray-700 italic mb-4">Far far away, behind the word mountains, far from the countries
-                    Vokalia and Consonantia, there live the blind texts.</p>
-                <div class="font-bold">Rodel Golez</div>
-                <span class="text-sm text-gray-500">Businesswoman</span>
-            </div>
-            <div class="bg-white rounded-lg p-6 shadow text-center flex flex-col items-center">
-                <img src="images/person_1.jpg" class="w-20 h-20 rounded-full mb-4" alt="Ken Bosh" />
-                <p class="text-gray-700 italic mb-4">Far far away, behind the word mountains, far from the countries
-                    Vokalia and Consonantia, there live the blind texts.</p>
-                <div class="font-bold">Ken Bosh</div>
-                <span class="text-sm text-gray-500">Businesswoman</span>
-            </div>
-        </div>
-    </div>
-</section>
-
+<div>
+    <section class="py-16 bg-gray-100">
+        {{-- <livewire:testimonial-card /> --}}
+    </section>
+</div>
 <!-- About Section -->
 <section class="py-16 bg-white">
     <div class="container mx-auto grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-lg shadow p-6">
-            <div class="w-full h-64 bg-cover bg-center rounded mb-4"
-                style="background-image: url('images/about.jpg');"></div>
+            <div class="w-full h-64 bg-cover bg-center rounded mb-4" style="background-image: url('images/about.jpg');">
+            </div>
             <h2 class="text-2xl font-bold mb-2">The most recommended vacation rental</h2>
             <p class="text-gray-600">A small river named Duden flows by their place and supplies it with the necessary
                 regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even
@@ -195,7 +192,8 @@
     style="background-image: url('images/bg_1.jpg'); background-size: cover; background-position: center;">
     <div class="bg-black bg-opacity-40 py-16 ">
         <h2 class="text-3xl font-bold mb-4">Ready to get started</h2>
-        <p class="mb-6">It’s safe to book online with us! Get your dream stay in clicks or drop us a line with your questions.</p>
+        <p class="mb-6">It’s safe to book online with us! Get your dream stay in clicks or drop us a line with your
+            questions.</p>
         <a href="#" class="btn-primary px-8 py-4">Book now</a>
         <a href="#" class="btn-white px-8 py-4 ml-4">Contact us</a>
     </div>
@@ -206,41 +204,7 @@
     <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-2">Latest news from our blog</h2>
         <span class="block text-lg text-gray-500 text-center mb-10">News &amp; Blog</span>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-gray-100 rounded-lg p-6 shadow">
-                <div class="w-full h-48 bg-cover bg-center rounded mb-4"
-                    style="background-image: url('images/image_1.jpg');"></div>
-                <h3 class="text-xl font-bold mb-2">Work Hard, Party Hard in a Luxury Chalet in the Alps</h3>
-                <div class="text-sm text-gray-500 mb-2 flex gap-2 justify-center">
-                    <span>January 30, 2020</span>
-                    <span>Admin</span>
-                    <span><span class="fa fa-comment"></span> 3</span>
-                </div>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-            </div>
-            <div class="bg-gray-100 rounded-lg p-6 shadow">
-                <div class="w-full h-48 bg-cover bg-center rounded mb-4"
-                    style="background-image: url('images/image_2.jpg');"></div>
-                <h3 class="text-xl font-bold mb-2">Work Hard, Party Hard in a Luxury Chalet in the Alps</h3>
-                <div class="text-sm text-gray-500 mb-2 flex gap-2 justify-center">
-                    <span>January 30, 2020</span>
-                    <span>Admin</span>
-                    <span><span class="fa fa-comment"></span> 3</span>
-                </div>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-            </div>
-            <div class="bg-gray-100 rounded-lg p-6 shadow">
-                <div class="w-full h-48 bg-cover bg-center rounded mb-4"
-                    style="background-image: url('images/image_3.jpg');"></div>
-                <h3 class="text-xl font-bold mb-2">Work Hard, Party Hard in a Luxury Chalet in the Alps</h3>
-                <div class="text-sm text-gray-500 mb-2 flex gap-2 justify-center">
-                    <span>January 30, 2020</span>
-                    <span>Admin</span>
-                    <span><span class="fa fa-comment"></span> 3</span>
-                </div>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>
-            </div>
-        </div>
+        <livewire:blog-card />
     </div>
 </section>
 
@@ -251,8 +215,7 @@
             <h2 class="text-xl font-bold mb-2"><a href="#" class="logo">VillaVeh</a></h2>
             <p class="mb-2">A small river named Duden flows by their place and supplies it with the necessary
                 regelialia.</p>
-            <a href="#" class="text-emerald-400">Read more <span
-                    class="fa fa-chevron-right text-xs"></span></a>
+            <a href="#" class="text-emerald-400">Read more <span class="fa fa-chevron-right text-xs"></span></a>
         </div>
         <div>
             <h2 class="text-xl font-bold mb-2">Services</h2>

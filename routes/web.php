@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Admin\UserRoleController;
+use App\Http\Controllers\admin\TestimonialController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,8 +56,20 @@ Route::middleware(['auth', 'role:master|engineer'])->group(function () {
     Route::get('Admin/index', [AdminController::class, 'index'])->name('Admin.index');
     Route::resource('admin/rooms', RoomController::class);
 
-     Route::resource('admin/services', ServiceController::class);
-         Route::resource('admin/blogs', BlogController::class);
+    Route::resource('admin/services', ServiceController::class);
+    Route::resource('admin/blogs', BlogController::class);
+    Route::get('/admin/testimonials', TestimonialController::class)->name('admin.testimonials');
+    Route::post('/admin/testimonial/{id}/approve', function ($id) {
+        $t = \App\Models\Testimonial::findOrFail($id);
+        $t->approved = true;
+        $t->save();
+
+        return back()->with('success', 'Testimonial approved');
+    })->name('admin.approve.testimonial');
+
+    Route::get('/admin/bookings', function () {
+        return view('admin/bookings');
+    })->name('admin/bookings');
 });
 
 // Route::middleware('role:master|admin|engineer')->group(function () {
