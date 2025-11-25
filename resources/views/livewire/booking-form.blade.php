@@ -41,14 +41,14 @@
                         </div>
 
                         <div>
-                            <input type="date" wire:model="check_in" class="input w-full" placeholder="Check-In">
+                            <input type="date" wire:model="check_in" class="input w-full placeholder-gray-700" placeholder="Check-In">
                             @error('check_in')
                                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div>
-                            <input type="date" wire:model="check_out" class="input w-full" placeholder="Check-Out">
+                            <input type="date" wire:model="check_out" class="input w-full placeholder-gray-700" placeholder="Check-Out">
                             @error('check_out')
                                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                             @enderror
