@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="relative min-h-screen bg-cover bg-center" style="background-image: url('images/bg_1.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-40"></div>
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 mx-auto">
@@ -7,6 +8,14 @@
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6 text-white">Book an appartment for your vacation</h1>
                 <div class="flex flex-wrap sm:gap-4 gap-2">
                     <a href="#" class="hidden sm:flex btn-primary mr-4 text-white">Learn more</a>
+=======
+<div class="relative lg:hidden flex">
+    <!-- Trigger Button -->
+    <button wire:click="showForm" type="button"
+        class="btn-primary px-4 py-2 bg-teal-600 text-white rounded-lg shadow lg:hidden">
+        Book Now
+    </button>
+>>>>>>> 8a8f84ff95c0b783ca9c9751e90426dfb1d3909f
 
                     @include('partials.booking')
                     <a href="#" class="btn-white">Contact us</a>
@@ -33,15 +42,23 @@
                             @enderror
                         </div>
                         <div>
+<<<<<<< HEAD
 
                             <input type="date" wire:model="check_in" class="input" placeholder="Check-In">
+=======
+                            <input type="date" wire:model="check_in" class="input w-full placeholder-gray-700" placeholder="Check-In">
+>>>>>>> 8a8f84ff95c0b783ca9c9751e90426dfb1d3909f
                             @error('check_in')
                                 <p class="text-red-600 text-sm">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
+<<<<<<< HEAD
 
                             <input type="date" wire:model="check_out" class="input" placeholder="Check-Out">
+=======
+                            <input type="date" wire:model="check_out" class="input w-full placeholder-gray-700" placeholder="Check-Out">
+>>>>>>> 8a8f84ff95c0b783ca9c9751e90426dfb1d3909f
                             @error('check_out')
                                 <p class="text-red-600 text-sm">{{ $message }}</p>
                             @enderror
