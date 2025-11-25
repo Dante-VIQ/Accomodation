@@ -3,8 +3,19 @@
 <livewire:service-card />
 
 <!-- Room Feature Section (Tailwind grid/flex replica) -->
-<livewire:room-card />
-
+<div class="w-full flex flex-col md:flex-row py-10">
+    <div class="flex flex-col w-[90%] lg:w-4/5 2xl:w-3/5 mx-auto">
+        <div class="w-full md:w-4/5 md:mx-auto text-center pt-3 px-4 md:px-0">
+            <h1 class="text-3xl mt-2 md:text-4xl font-semibold text-gray-800">
+                <span class="text-emerald-600"> Our</span> Rooms
+            </h1>
+            <p class="text-xl font-thin mb-4 line-clamp-4 mt-4 md:line-clamp-none text-gray-500">
+                This Villa features various high end rooms. Designed to maximize your experience here.
+            </p>
+        </div>
+        <livewire:room-card />
+    </div>
+</div>
 <!-- Testimonial Section -->
 <div>
     <section class="py-16 bg-gray-100">
