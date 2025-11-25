@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Testimonial;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 
 class TestimonialCard extends Component
 {
@@ -14,20 +15,13 @@ class TestimonialCard extends Component
     public $role;
     public $message;
     public $avatar; // image upload
+    public $can_submit = false;
 
     public function mount()
     {
-        // if (!auth()->check()) {
-        //     abort(403, 'You must login.');
-        // }
-
-        $hasBooking = Booking::where('user_id', auth()->id())
-            ->where('status', 'completed')
-            ->exists();
-
-        if (!$hasBooking) {
-            abort(403, 'Only guests with completed bookings can submit testimonials.');
-        }
+        // Allow submission only for authenticated users. The app's bookings table
+        // does not currently reference users, so avoid checking bookings by user.
+        $this->can_submit = Auth::check();
     }
 
     public function submit()

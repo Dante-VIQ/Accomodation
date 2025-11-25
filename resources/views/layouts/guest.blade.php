@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'LillaVeroh') }}</title>
+    <title>{{ config('app.name', 'VillaVeh') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,24 +18,12 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="css/animate.css">
-
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-    <link rel="stylesheet" href="css/flaticon.css">
-    {{-- <link rel="stylesheet" href="css/style.css"> --}}
-    <!-- Scripts -->
-
-    @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
+<body class="font-sans text-gray-900">
     @include('layouts.navigation')
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
@@ -43,10 +31,8 @@
         </div>
     </div>
 
-
-    @livewireScripts
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script> --}}
+    {{-- <script>
         // Simple mobile nav toggle
         document.addEventListener('DOMContentLoaded', function() {
             const navToggle = document.getElementById('nav-toggle');
@@ -57,7 +43,9 @@
                 });
             }
         });
-    </script>
+    </script> --}}
+
+    @livewireScripts
 
 </body>
 

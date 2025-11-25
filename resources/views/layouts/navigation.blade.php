@@ -32,9 +32,9 @@
                         {{ __('About') }}
                     </x-nav-link> --}}
                     {{-- @role('master') --}}
-                        <x-nav-link href="Admin/index" :active="request()->routeIs('Admin.index')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
+                    <x-nav-link href="Admin/index" :active="request()->routeIs('Admin.index')">
+                        {{ __('Admin') }}
+                    </x-nav-link>
                     {{-- @endrole --}}
                 </div>
             </div>
@@ -112,7 +112,7 @@
             <x-responsive-nav-link href="contact" :active="request()->routeIs('contact')">
                 {{ __('Contact') }}
             </x-responsive-nav-link>
-                    {{-- @role('master') --}}
+            {{-- @role('master') --}}
 
             <x-responsive-nav-link href="Admin/index" :active="request()->routeIs('Admin/index')">
                 {{ __('Admin') }}

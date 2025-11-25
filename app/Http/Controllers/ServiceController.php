@@ -50,7 +50,7 @@ class ServiceController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Service created successfully.');
+        return redirect()->route('admin.services.index')->with('success', 'Service created successfully.');
     }
 
     /**

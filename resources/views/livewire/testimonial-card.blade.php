@@ -1,9 +1,13 @@
 <div x-data="{ open: false }" class="relative z-50">
 
     <!-- BUTTON THAT OPENS MODAL -->
-    <button @click="open = true" class="bg-indigo-600 text-white px-6 py-2 rounded-lg">
-        Leave a Testimonial
-    </button>
+    @if($can_submit)
+        <button @click="open = true" class="bg-indigo-600 text-white px-6 py-2 rounded-lg">
+            Leave a Testimonial
+        </button>
+    @else
+        <a href="{{ route('login') }}" class="bg-indigo-600 text-white px-6 py-2 rounded-lg inline-block">Login to Leave a Testimonial</a>
+    @endif
 
     <!-- MODAL BACKDROP -->
     <div x-show="open" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"

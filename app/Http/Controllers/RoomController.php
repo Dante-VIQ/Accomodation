@@ -43,7 +43,7 @@ class RoomController extends Controller
               'price' => 'required|numeric',
            ]);
            Room::create($validated);
-           return redirect()->route('admin.rooms')->with('success', 'Room created successfully.');
+           return redirect()->route('admin.rooms.index')->with('success', 'Room created successfully.');
     }
 
     /**
@@ -78,7 +78,7 @@ class RoomController extends Controller
         ]);
         $room = Room::findOrFail($id);
         $room->update($validated);
-        return redirect()->route('Admin.rooms')->with('success', 'Room updated successfully.');
+        return redirect()->route('admin.rooms.index')->with('success', 'Room updated successfully.');
     }
 
     /**
@@ -88,6 +88,6 @@ class RoomController extends Controller
     {
         $room = Room::findOrFail($id);
         $room->delete();
-        return redirect()->route('Admin.rooms')->with('success', 'Room deleted successfully.');
+        return redirect()->route('admin.rooms.index')->with('success', 'Room deleted successfully.');
     }
 }

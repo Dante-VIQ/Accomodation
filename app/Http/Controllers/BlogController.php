@@ -48,7 +48,7 @@ class BlogController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect()->route('blogs.index')->with('success', 'Blog created successfully');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully');
     }
 
     /**
@@ -90,7 +90,7 @@ class BlogController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully');
     }
 
     /**
@@ -100,6 +100,6 @@ class BlogController extends Controller
     {
         $blog->delete();
 
-        return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully');
     }
 }
