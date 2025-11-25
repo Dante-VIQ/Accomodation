@@ -96,13 +96,13 @@
                 <i class="fas fa-align-left mr-3"></i>
                 Blogs
             </a>
-            <a href="/admin/bookings"
+            <a href="/Admin/bookings"
                 class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                 <i class="fas fa-tablet-alt mr-3"></i>
                 Bookings
             </a>
 
-                <a href="/admin/user/roles/index"
+                <a href="/Admin/user/roles/index"
                     class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>
                     Roles

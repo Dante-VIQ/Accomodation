@@ -1,12 +1,13 @@
 <?php
 
+use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\Admin\UserRoleController;
+use App\Http\Controllers\admin\UserRoleController;
 use App\Http\Controllers\admin\TestimonialController;
 
 Route::get('/', function () {
@@ -50,8 +51,8 @@ Route::get('/booknow', function () {
 })->name('booknow');
 
 Route::middleware(['auth', 'role:master|engineer'])->group(function () {
-    Route::get('/admin/user/roles/index', [UserRoleController::class, 'index'])->name('admin.user.roles.index');
-    Route::post('/admin/roles/{user}', [UserRoleController::class, 'update'])->name('admin.roles.update');
+    Route::get('/Admin/user/roles/index', [UserRoleController::class, 'index'])->name('admin.user.roles.index');
+    Route::post('/Admin/roles/{user}', [UserRoleController::class, 'update'])->name('admin.roles.update');
 
     Route::get('Admin/index', [AdminController::class, 'index'])->name('Admin.index');
     Route::resource('admin/rooms', RoomController::class);
@@ -67,9 +68,9 @@ Route::middleware(['auth', 'role:master|engineer'])->group(function () {
         return back()->with('success', 'Testimonial approved');
     })->name('admin.approve.testimonial');
 
-    Route::get('/admin/bookings', function () {
-        return view('admin/bookings');
-    })->name('admin/bookings');
+    Route::get('/Admin/bookings', function () {
+        return view('Admin/bookings');
+    })->name('Admin/bookings');
 });
 
 // Route::middleware('role:master|admin|engineer')->group(function () {
