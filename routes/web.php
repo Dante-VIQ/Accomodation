@@ -8,7 +8,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Admin\UserRoleController;
-use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\admin\TestimonialController;
+
 
 Route::get('/', function () {
     return view('welcome');
