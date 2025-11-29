@@ -18,9 +18,7 @@ class UserRoleController extends Controller
             $query->where('name', 'engineer');
         })->paginate(15);
 
-        return view(
-            'admin.user.roles.index',
-            compact('users') + [
+        return view('Admin.user.roles.index', compact('users') + [
                 'roles' => Role::all(),
             ],
         );
