@@ -5,14 +5,14 @@
         <div class="grid lg:grid-cols-1 grid-cols-1 gap-2 mx-auto">
             <div class="container h-full flex relative z-10 p-20 justify-center">
                 <div class="w-full max-w-4xl text-white">
-                    <h2 class="text-2xl text-gray-200 mb-2">Welcome to VillaVeh</h2>
-                    <h1 class="text-4xl text-gray-200 font-bold mb-6">Book an appartment for your vacation</h1>
+                    <h2 class="text-2xl text-gray-200 mb-2">Welcome to VillaVeh GameView</h2>
+                    <h1 class="text-4xl text-gray-200 font-bold mb-6">Explore our luxurious rooms</h1>
                     <div x-data="{ open: false }" class="lg:flex block space-x-4">
                         <a href="#" class="hidden sm:flex btn-primary">Learn more</a>
                         <button type="submit" class="lg:hidden block btn-primary">
                             Book Now
                         </button>
-                        <a href="#" class="btn-white">Contact us</a>
+
                     </div>
                 </div>
             </div>
