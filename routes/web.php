@@ -7,8 +7,8 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\admin\UserRoleController;
-use App\Http\Controllers\admin\TestimonialController;
+use App\Http\Controllers\Admin\UserRoleController;
+use App\Http\Controllers\Admin\TestimonialController;
 
 
 Route::get('/', function () {
