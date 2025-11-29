@@ -51,7 +51,7 @@ Route::get('/booknow', function () {
 })->name('booknow');
 
 Route::middleware(['auth', 'role:master|engineer'])->group(function () {
-    Route::get('/Admin/user/roles/index', [App\Http\Controllers\Admin\UserRoleController::class, 'index'])->name('admin.user.roles.index');
+    Route::get('/Admin/user/roles/index', [\App\Http\Controllers\Admin\UserRoleController::class, 'index'])->name('admin.user.roles.index');
     Route::post('/Admin/roles/{user}', [\App\Http\Controllers\Admin\UserRoleController::class, 'update'])->name('admin.roles.update');
 
     Route::get('Admin/index', [AdminController::class, 'index'])->name('Admin.index');
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'role:master|engineer'])->group(function () {
 
     Route::resource('admin/services', ServiceController::class);
     Route::resource('admin/blogs', BlogController::class);
-    Route::get('/admin/testimonials', \App\Http\Controllers\Admin\TestimonialController::class)->name('admin.testimonials');
+    Route::get('/admin/testimonials', [\App\Http\Controllers\Admin\TestimonialController::class])->name('admin.testimonials');
     Route::post('/admin/testimonial/{id}/approve', function ($id) {
         $t = \App\Models\Testimonial::findOrFail($id);
         $t->approved = true;
