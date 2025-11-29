@@ -18,7 +18,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::latest()->paginate(10);
-        return view('admin.blogs.index', compact('blogs'));
+        return view('Admin.blogs.index', compact('blogs'));
     }
 
     /**
@@ -26,7 +26,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('admin.blogs.create');
+        return view('Admin.blogs.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class BlogController extends Controller
             'body' => $request->body,
         ]);
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully');
+        return redirect()->route('Admin.blogs.index')->with('success', 'Blog created successfully');
     }
 
     /**
