@@ -62,11 +62,11 @@
                     Bookings
                 </a>
 
-                <a href="/admin/user/roles/index"
+                {{-- <a href="/admin/user/roles/index"
                     class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-calendar mr-3"></i>
                     Roles
-                </a>
+                </a> --}}
             </nav>
             <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
                 <i class="fas fa-plus mr-3"></i> New Report
