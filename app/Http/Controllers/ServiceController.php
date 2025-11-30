@@ -38,7 +38,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'image' => 'required|image|mimes:jpg,png,jpeg,webp|max:20480',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
@@ -79,7 +79,7 @@ class ServiceController extends Controller
     public function update(Request $request, $id) // Changed to accept ID
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:20480',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
         ]);

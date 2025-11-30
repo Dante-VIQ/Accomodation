@@ -67,8 +67,82 @@
             </header>
         @endisset
 
+        <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
+            <div class="flex items-center justify-between w-full">
+                <a href="/" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
+                    <template x-if="!isOpen">
+                        <span><i class="fas fa-bars"></i></span>
+                    </template>
+                    <template x-if="isOpen">
+                        <span><i class="fas fa-times"></i></span>
+                    </template>
+                </button>
+            </div>
+
+            <!-- Dropdown Nav -->
+            <nav x-show="isOpen" class="flex flex-col pt-4 bg-sidebar w-full left-0 z-20">
+                <a href="index.html" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="/admin/services"
+                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-sticky-note mr-3"></i>
+                    Services
+                </a>
+
+                <a href="/admin/rooms"
+                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-table mr-3"></i>
+                    Rooms
+                </a>
+
+                <a href="/admin/blogs"
+                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-align-left mr-3"></i>
+                    Blogs
+                </a>
+                <a href="/admin/bookings"
+                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-tablet-alt mr-3"></i>
+                    Bookings
+                </a>
+
+                {{-- <a href="/admin/user/roles/index"
+                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-calendar mr-3"></i>
+                    Roles
+                </a> --}}
+
+                <select class="m-4 p-2 rounded bg-white text-gray-600 font-semibold focus:outline-none">
+                    <option>
+                        <x-responsive-nav-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
+                        </x-responsive-nav-link>
+                    </option>
+                    <option>
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <x-responsive-nav-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-responsive-nav-link>
+                        </form>
+                    </option>
+                </select>
+            </nav>
+            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                <i class="fas fa-plus mr-3"></i> New Report
+            </button> -->
+        </header>
         <!-- Page Content -->
         <main class="flex">
+
+            <!-- Mobile Header & Nav -->
+
             <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
                 <div class="p-6">
                     <a href="/"

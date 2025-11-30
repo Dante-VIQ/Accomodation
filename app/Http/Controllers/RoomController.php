@@ -39,7 +39,7 @@ class RoomController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:20480',
             'description' => 'required|string',
             'price' => 'required|numeric',
         ]);
@@ -85,7 +85,7 @@ class RoomController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Make image optional for update
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:20480', // Make image optional for update
             'description' => 'required|string',
             'price' => 'required|numeric',
         ]);

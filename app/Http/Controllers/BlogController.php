@@ -35,7 +35,7 @@ class BlogController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        'image' => 'required|image|mimes:jpg,png,jpeg|max:20480',
         'title' => 'required|string|max:255',
         'body' => 'required|string',
     ]);
@@ -82,7 +82,7 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:20480',
             'title' => 'required|string|max:255',
             'body' => 'required|string',
         ]);
