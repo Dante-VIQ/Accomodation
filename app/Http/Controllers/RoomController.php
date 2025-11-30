@@ -34,23 +34,18 @@ class RoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'type' => 'required|string|max:255',
-        'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-        'description' => 'required|string',
-        'price' => 'required|numeric',
-    ]);
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+        ]);
 
-    Log::info('Store method called', $validated); // Debug line
-
-    try {
         // Upload image
         $path = $request->file('image')->store('rooms', 'public_direct');
-        Log::info('Image uploaded to: ' . $path); // Debug line
-
         $imagePath = 'uploads/' . $path;
 
         // Create room
@@ -62,15 +57,8 @@ public function store(Request $request)
             'price' => $validated['price'],
         ]);
 
-        Log::info('Room created with ID: ' . $room->id); // Debug line
-
         return redirect()->route('rooms.index')->with('success', 'Room created successfully.');
-
-    } catch (\Exception $e) {
-        Log::error('Error creating room: ' . $e->getMessage()); // Debug line
-        return back()->with('error', 'Error creating room: ' . $e->getMessage());
     }
-}
     /**
      * Display the specified resource.
      */
@@ -92,33 +80,34 @@ public function store(Request $request)
     /**
      * Update the specified resource in storage.
      */
-public function update(Request $request, $id)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'type' => 'required|string|max:255',
-        'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Make image optional for update
-        'description' => 'required|string',
-        'price' => 'required|numeric',
-    ]);
+    public function update(Request $request, Room $room)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Make image optional for update
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+        ]);
 
-    $room = Room::findOrFail($id);
-    $updateData = [
-        'name' => $request->name,
-        'type' => $request->type,
-        'description' => $request->description,
-        'price' => $request->price,
-    ];
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('rooms', 'public_direct');
 
-    // Handle image upload only if new image is provided
-    if ($request->hasFile('image')) {
-        $path = $request->file('image')->store('rooms', 'public_direct');
-        $updateData['image'] = 'uploads/' . $path;
+            // Store only the filename/path for database
+            $imagePath = 'uploads/' . $path;
+
+            $room->update([
+                'name' => $request->name,
+                'type' => $request->type,
+               'image' => $imagePath, // Update image only if a new one was uploaded
+                'description' => $request->description,
+                'price' => $request->price,
+            ]);
+
+            return redirect()->route('rooms.index')->with('success', 'Room updated successfully.');
+        }
     }
-
-    $room->update($updateData);
-    return redirect()->route('rooms.index')->with('success', 'Room updated successfully.');
-}
 
     /**
      * Remove the specified resource from storage.

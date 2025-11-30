@@ -54,11 +54,10 @@ class BlogController extends Controller
             'body' => $request->body,
         ]);
 
-
         return redirect()->route('blogs.index')->with('success', 'Blog created successfully');
-        // If no image was uploaded (validation should catch this, but as fallback)
+
     }
-    return back()->with('error', 'Image upload failed');
+
 
 }
     /**
