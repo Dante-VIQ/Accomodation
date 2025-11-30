@@ -12,7 +12,7 @@
                     <span>{{ $blog->author }}</span>
                     <span><span class="fa fa-comment"></span> {{ $blog->comments_count }}</span>
                 </div>
-                <p>{{ $blog->body }}</p>
+                <p class="h-24 overflow-hidden text-wrap">{{ $blog->body }}</p>
             </div>
         @endforeach
      </div>
