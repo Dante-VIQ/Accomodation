@@ -1,7 +1,7 @@
 <div class="relative lg:hidden flex">
     <!-- Trigger Button -->
     <button wire:click="showForm" type="button"
-        class="px-6 py-3 bg-teal-600 text-white rounded-lg shadow lg:hidden">
+        class="px-6 py-3 btn-primary text-white rounded-lg shadow lg:hidden">
         Book Now
     </button>
 

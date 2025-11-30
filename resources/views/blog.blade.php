@@ -7,11 +7,7 @@
                 <div class="w-full max-w-4xl text-white">
                     <h2 class="text-2xl text-gray-200 mb-2">Welcome to VillaVeh</h2>
                     <h1 class="text-4xl text-gray-200 font-bold mb-6">Your daily spark of Knowledge and Inspiration.</h1>
-                <div class="flex flex-wrap sm:gap-4 gap-2">
-                    <a href="#" class="hidden sm:flex btn-primary mr-4 text-white">Learn more</a>
 
-                    @include('partials.booking')
-                </div>
                 </div>
             </div>
         </div>

@@ -1,21 +1,23 @@
 <div>
     @if ($this->blogs && $this->blogs->count() > 0)
-     <div class="grid md:grid-cols-3 gap-8">
-        @foreach ($blogs as $blog)
-            <div class="bg-gray-100 rounded-lg p-6 shadow mb-8">
-                <div class="w-full h-48 bg-cover bg-center rounded mb-4"
-                    style="background-image: url('{{ asset($blog->image) }}');">
+        <div class="grid md:grid-cols-3 gap-8">
+            @foreach ($blogs as $blog)
+                <div class="bg-gray-100 rounded-lg p-6 shadow mb-8">
+                    <div class="w-full h-48 bg-cover bg-center rounded mb-4"
+                        style="background-image: url('{{ asset($blog->image) }}');">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">{{ $blog->title }}</h3>
+                    <div class="text-sm text-gray-500 mb-2 flex gap-2 justify-center">
+                        <span>{{ $blog->created_at->diffForHumans() }}</span>
+                        <span>{{ $blog->author }}</span>
+                        <span><span class="fa fa-comment"></span> {{ $blog->comments_count }}</span>
+                    </div>
+                    <p class="h-24 overflow-hidden text-wrap">{{ $blog->body }}</p>
+
+                    <a href="{{ route('blog-single', $blog) }}" class="mt-4 mr-4 text-gray-700 bg-teal-600 bg-opacity-50">Read more</a>
                 </div>
-                <h3 class="text-xl font-bold mb-2">{{ $blog->title }}</h3>
-                <div class="text-sm text-gray-500 mb-2 flex gap-2 justify-center">
-                    <span>{{ $blog->created_at->diffForHumans() }}</span>
-                    <span>{{ $blog->author }}</span>
-                    <span><span class="fa fa-comment"></span> {{ $blog->comments_count }}</span>
-                </div>
-                <p class="h-24 overflow-hidden text-wrap">{{ $blog->body }}</p>
-            </div>
-        @endforeach
-     </div>
+            @endforeach
+        </div>
     @else
         <div class="grid md:grid-cols-3 gap-8">
             <div class="bg-gray-100 rounded-lg p-6 shadow">

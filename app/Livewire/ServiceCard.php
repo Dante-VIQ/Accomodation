@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class ServiceCard extends Component
 {
-        public $services;
+        public $services, $bookings;
 
     public function mount()
     {

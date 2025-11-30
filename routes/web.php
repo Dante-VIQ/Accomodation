@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\ShowBlog;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
@@ -49,6 +50,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/booknow', function () {
     return view('booknow');
 })->name('booknow');
+
+Route::get('blog/{blog}', ShowBlog::class)->name('blog-single');
 
 Route::middleware(['auth', 'role:master|engineer'])->group(function () {
     Route::get('/Admin/user/roles/index', [UserRoleController::class, 'index'])->name('admin.user.roles.index');

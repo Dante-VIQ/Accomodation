@@ -24,6 +24,11 @@ class BookingForm extends Component
         'time' => 'nullable|string|max:50',
     ];
 
+    public function mount()
+    {
+        $this->showForm();
+        return view('partials.booking');
+    }
     // Add methods to show/hide modal
     public function showForm()
     {
