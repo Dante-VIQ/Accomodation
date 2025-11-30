@@ -33,24 +33,34 @@ class BlogController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
-            'title' => 'required|string|max:255',
-            'body' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'image' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        'title' => 'required|string|max:255',
+        'body' => 'required|string',
+    ]);
 
-        $path = $request->file('image')->store('blogs', 'public');
+    // Handle image upload
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('blogs', 'public_direct');
 
+        // Store only the filename/path for database
+        $imagePath = 'uploads/' . $path;
+
+        // Create blog post
         Blog::create([
-            'image' => $path,
+            'image' => $imagePath, // Store the path relative to public folder
             'title' => $request->title,
             'body' => $request->body,
         ]);
 
-        return redirect()->route('Admin.blogs.index')->with('success', 'Blog created successfully');
-    }
 
+        return redirect()->route('blogs.index')->with('success', 'Blog created successfully');
+        // If no image was uploaded (validation should catch this, but as fallback)
+    }
+    return back()->with('error', 'Image upload failed');
+
+}
     /**
      * Display the specified resource.
      */
@@ -64,7 +74,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('admin.blogs.edit', compact('blog'));
+        return view('Admin.blogs.edit', compact('blog'));
     }
 
     /**
@@ -78,19 +88,22 @@ class BlogController extends Controller
             'body' => 'required|string',
         ]);
 
-        $path = $blog->image;
+            // Handle image upload
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('blogs', 'public_direct');
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('blogs', 'public');
-        }
+        // Store only the filename/path for database
+        $imagePath = 'uploads/' . $path;
+
 
         $blog->update([
-            'image' => $path,
+            'image' => $imagePath,
             'title' => $request->title,
             'body' => $request->body,
         ]);
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully');
+        return redirect()->route('blogs.index')->with('success', 'Blog updated successfully');
+    }
     }
 
     /**
@@ -100,6 +113,6 @@ class BlogController extends Controller
     {
         $blog->delete();
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully');
+        return redirect()->route('blogs.index')->with('success', 'Blog deleted successfully');
     }
 }

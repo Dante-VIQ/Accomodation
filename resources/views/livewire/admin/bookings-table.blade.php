@@ -15,7 +15,7 @@
                 <tr class="border-b">
                     <td class="p-3">{{ $b->full_name }}<br>{{ $b->phone }}</td>
                     <td class="p-3">{{ $b->room->name }}</td>
-                    <td class="p-3">{{ $b->check_in }} → {{ $b->check_out }}</td>
+                    <td class="p-3">{{ $b->check_in->diffForHumans() }} → {{ $b->check_out->diffForHumans() }}</td>
                     <td class="p-3">
                         Adults: {{ $b->adults }}<br>
                         Children: {{ $b->children }}

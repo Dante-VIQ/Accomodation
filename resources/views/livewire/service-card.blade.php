@@ -5,10 +5,10 @@
                   @foreach ($services as $service)
                       <div class="bg-white rounded-lg shadow p-6 text-center flex flex-col items-center">
                           <div class="w-full h-48 bg-cover bg-center rounded mb-4"
-                              style="background-image: url('{{ asset('storage/' . $service->image) }}');"></div>
+                              style="background-image: url('{{ asset($service->image) }}');"></div>
                           <h3 class="text-xl font-bold mb-2">{{ $service->title }}</h3>
                           <p class="text-gray-600">{{ $service->description }}</p>
-                          <a href="#" class="btn-primary mt-4">Read more</a>
+                          {{-- <a href="#" class="btn-primary mt-4">Read more</a> --}}
                       </div>
                   @endforeach
               </div>

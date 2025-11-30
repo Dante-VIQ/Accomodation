@@ -10,7 +10,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @foreach ($services as $service)
                 <div class="border rounded-lg p-4 shadow-sm">
-                    <img src="{{ asset('storage/' . $service->image) }}" class="w-full h-40 object-cover rounded-lg mb-3">
+                    <img src="{{ asset($service->image) }}" class="w-full h-40 object-cover rounded-lg mb-3">
 
                     <h2 class="text-lg font-semibold">{{ $service->name }}</h2>
                     <p class="text-gray-600 mt-2">{{ $service->description }}</p>

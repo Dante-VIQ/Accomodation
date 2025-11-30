@@ -22,7 +22,7 @@
                 @foreach ($rooms as $room)
                     <tr class="border">
                         <td class="p-3">
-                            <img src="{{ $room->image }}" class="w-16 h-16 object-cover rounded">
+                            <img src="{{ asset($room->image) }}" class="w-16 h-16 object-cover rounded">
                         </td>
                         <td class="p-3">{{ $room->name }}</td>
                         <td class="p-3 capitalize">{{ $room->type }}</td>

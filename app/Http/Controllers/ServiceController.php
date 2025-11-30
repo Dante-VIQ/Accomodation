@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __construct()
     {
+        // Only master, admin, engineer allowed
         $this->middleware('role:engineer|master');
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -41,16 +43,17 @@ class ServiceController extends Controller
             'description' => 'required|string',
         ]);
 
-        // Store image
-        $path = $request->file('image')->store('services', 'public');
+        // Store image using public_direct disk
+        $path = $request->file('image')->store('services', 'public_direct');
+        $imagePath = 'uploads/' . $path;
 
         Service::create([
-            'image' => $path,
+            'image' => $imagePath,
             'name' => $request->name,
             'description' => $request->description,
         ]);
 
-        return redirect()->route('admin.services.index')->with('success', 'Service created successfully.');
+        return redirect()->route('services.index')->with('success', 'Service created successfully.');
     }
 
     /**
@@ -66,13 +69,14 @@ class ServiceController extends Controller
      */
     public function edit(string $id)
     {
+        $service = Service::findOrFail($id); // Fixed: added this line
         return view('admin.services.edit', compact('service'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, $id) // Changed to accept ID
     {
         $request->validate([
             'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:2048',
@@ -80,6 +84,7 @@ class ServiceController extends Controller
             'description' => 'required|string',
         ]);
 
+        $service = Service::findOrFail($id); // Find the service
         $data = [
             'name' => $request->name,
             'description' => $request->description,
@@ -87,24 +92,33 @@ class ServiceController extends Controller
 
         // If new image is uploaded
         if ($request->hasFile('image')) {
-            // Delete old image
-            Storage::disk('public')->delete($service->image);
+            // Delete old image from public folder
+            if ($service->image && file_exists(public_path($service->image))) {
+                unlink(public_path($service->image));
+            }
 
-            // Save new image
-            $data['image'] = $request->file('image')->store('services', 'public');
+            // Save new image using public_direct
+            $path = $request->file('image')->store('services', 'public_direct');
+            $data['image'] = 'uploads/' . $path;
         }
 
         $service->update($data);
 
-        return redirect()->route('admin.services.index')->with('success', 'Service updated successfully.');
+        return redirect()->route('services.index')->with('success', 'Service updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy($id) // Changed to accept ID
     {
-        Storage::disk('public')->delete($service->image);
+        $service = Service::findOrFail($id);
+
+        // Delete image from public folder
+        if ($service->image && file_exists(public_path($service->image))) {
+            unlink(public_path($service->image));
+        }
+
         $service->delete();
 
         return back()->with('success', 'Service deleted.');

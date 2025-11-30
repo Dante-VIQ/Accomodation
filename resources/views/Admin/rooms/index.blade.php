@@ -4,7 +4,7 @@
                     <div
                         class="basis-1/3 w-full border border-gray-100 dark:border-gray-600 rounded-md pr-0 md:mx-4 mt-6">
                         <div class="flex flex-col relative">
-                            <img src="{{ $room->image }}" class="w-full relative z-10 max-h-80"
+                            <img src="{{ asset($room->image) }}" class="w-full relative z-10 max-h-80"
                                 alt="{{ $room->name }}" />
                         </div>
                         <div class="flex flex-col px-4">

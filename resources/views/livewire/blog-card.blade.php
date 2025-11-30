@@ -4,11 +4,11 @@
         @foreach ($blogs as $blog)
             <div class="bg-gray-100 rounded-lg p-6 shadow mb-8">
                 <div class="w-full h-48 bg-cover bg-center rounded mb-4"
-                    style="background-image: url('{{ asset('storage/' . $blog->image) }}');">
+                    style="background-image: url('{{ asset($blog->image) }}');">
                 </div>
                 <h3 class="text-xl font-bold mb-2">{{ $blog->title }}</h3>
                 <div class="text-sm text-gray-500 mb-2 flex gap-2 justify-center">
-                    <span>{{ optional($blog->published_at)->format('F d, Y') }}</span>
+                    <span>{{ $blog->created_at->diffForHumans() }}</span>
                     <span>{{ $blog->author }}</span>
                     <span><span class="fa fa-comment"></span> {{ $blog->comments_count }}</span>
                 </div>
