@@ -12,9 +12,9 @@
                         <span>{{ $blog->author }}</span>
                         <span><span class="fa fa-comment"></span> {{ $blog->comments_count }}</span>
                     </div>
-                    <p class="h-24 overflow-hidden text-wrap">{{ $blog->body }}</p>
+                    <p class="overflow-hidden text-wrap">{!! Str::limit(strip_tags($blog->body), 150) !!}</p>
 
-                    <a href="{{ route('blog-single', $blog) }}" class="mt-4 mr-4 text-gray-700 bg-teal-600 bg-opacity-50">Read more</a>
+                    <a href="{{ route('blog-single', $blog) }}" class="mt-4 mr-4 text-gray-700 bg-opacity-50">Read more</a>
                 </div>
             @endforeach
         </div>
