@@ -6,15 +6,15 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}"
-                        class="text-3xl my-2 md:text-3xl font-bold text-gray-600 uppercase">
-                        <span class="text-emerald-600">Villa</span>Veh
+                        class="text-3xl my-2 md:text-3xl font-bold text-gray-600">
+                        <span class="text-emerald-600 uppercase">Villa</span>Veh
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Home') }}
                     </x-nav-link>
                     <x-nav-link href="rent" :active="request()->routeIs('rent')">
                         {{ __('Rooms') }}

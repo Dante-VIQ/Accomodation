@@ -3,7 +3,7 @@
     <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 mx-auto">
         <div class="container h-full flex relative z-10 p-20 justify-between">
             <div class="w-full max-w-4xl">
-                <h2 class="sm:text-2xl text-lg font-light mb-2 text-white">Welcome to VillaVeh</h2>
+                <h2 class="sm:text-xl text-lg font-light mb-2 text-white">Welcome to VillaVeh GameView</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6 text-white">Book an appartment for your vacation</h1>
                 <div class="flex flex-wrap sm:gap-4 gap-2">
                     <a href="#" class="hidden sm:flex btn-primary mr-4 text-white">Learn more</a>
