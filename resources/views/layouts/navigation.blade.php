@@ -6,8 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}"
-                        class="text-3xl my-2 md:text-3xl font-bold text-gray-600">
-                        <span class="text-emerald-600 uppercase">Villa</span>Veh
+                        class="text-3xl my-2 md:text-3xl font-bold text-gray-600 uppercase">
+                        <span class="text-emerald-600 ">Villa</span>Veh
                     </a>
                 </div>
 
@@ -31,11 +31,11 @@
                     {{-- <x-nav-link href="about" :active="request()->routeIs('About')">
                         {{ __('About') }}
                     </x-nav-link> --}}
-                    {{-- @role('master') --}}
+                    @role('master|engineer')
                     <x-nav-link href="Admin/index" :active="request()->routeIs('Admin.index')">
                         {{ __('Admin') }}
                     </x-nav-link>
-                    {{-- @endrole --}}
+                    @endrole
                 </div>
             </div>
 

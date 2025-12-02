@@ -11,55 +11,123 @@
     <main class="container mx-auto px-4 py-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Contact Form -->
-            <div>
+ <div>
                 <h2 class="font-serif text-3xl font-semibold text-hotel-navy mb-6">Get In Touch</h2>
                 <p class="text-gray-600 mb-8">Have questions about our accommodations, amenities, or special offers? Fill out the form below and our team will get back to you within 24 hours.</p>
-
-                <form id="contact-form" class="space-y-6">
+                
+                <!-- Success Message (displayed after form submission) -->
+                @if(session('success'))
+                <div id="form-success" class="mb-6 p-4 bg-green-50 text-green-700 rounded-lg border border-green-200">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-0.5"></i>
+                        <div>
+                            <p class="font-medium text-green-800">Message Sent Successfully!</p>
+                            <p class="text-green-700">{{ session('success') }}</p>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                
+                <!-- Error Message -->
+                @if($errors->any())
+                <div class="mb-6 p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
+                    <div class="flex items-start">
+                        <i class="fas fa-exclamation-circle text-red-500 text-xl mr-3 mt-0.5"></i>
+                        <div>
+                            <p class="font-medium text-red-800">Please fix the following errors:</p>
+                            <ul class="list-disc list-inside mt-1">
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                
+                <form id="contact-form" action="{{ route('contact.submit') }}" method="POST" class="space-y-6">
+                    @csrf
+                    
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="firstName" class="block text-gray-700 mb-2">First Name *</label>
-                            <input type="text" id="firstName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" required>
+                            <label for="name" class="block text-gray-700 mb-2">Full Name *</label>
+                            <input type="text" id="name" name="name" value="{{ old('name') }}" 
+                                   class="w-full px-4 py-3 border @error('name') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" 
+                                   required>
+                            @error('name')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div>
-                            <label for="lastName" class="block text-gray-700 mb-2">Last Name *</label>
-                            <input type="text" id="lastName" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" required>
+                            <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" 
+                                   class="w-full px-4 py-3 border @error('phone') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition">
+                            @error('phone')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
-
+                    
                     <div>
                         <label for="email" class="block text-gray-700 mb-2">Email Address *</label>
-                        <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" required>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" 
+                               class="w-full px-4 py-3 border @error('email') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" 
+                               required>
+                        @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-
+                    
                     <div>
-                        <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
-                        <input type="tel" id="phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition">
-                    </div>
-
-                    <div>
-                        <label for="subject" class="block text-gray-700 mb-2">Subject</label>
-                        <select id="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition">
+                        <label for="subject" class="block text-gray-700 mb-2">Subject *</label>
+                        <select id="subject" name="subject" 
+                                class="w-full px-4 py-3 border @error('subject') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" 
+                                required>
                             <option value="">Select a subject</option>
-                            <option value="reservation">Reservation Inquiry</option>
-                            <option value="amenities">Hotel Amenities</option>
-                            <option value="events">Events & Meetings</option>
-                            <option value="feedback">Feedback</option>
-                            <option value="other">Other</option>
+                            <option value="Reservation Inquiry" {{ old('subject') == 'Reservation Inquiry' ? 'selected' : '' }}>Reservation Inquiry</option>
+                            <option value="Hotel Amenities" {{ old('subject') == 'Hotel Amenities' ? 'selected' : '' }}>Hotel Amenities</option>
+                            <option value="Events & Meetings" {{ old('subject') == 'Events & Meetings' ? 'selected' : '' }}>Events & Meetings</option>
+                            <option value="Special Offers" {{ old('subject') == 'Special Offers' ? 'selected' : '' }}>Special Offers</option>
+                            <option value="Feedback" {{ old('subject') == 'Feedback' ? 'selected' : '' }}>Feedback</option>
+                            <option value="Other" {{ old('subject') == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
+                        @error('subject')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-
+                    
                     <div>
                         <label for="message" class="block text-gray-700 mb-2">Message *</label>
-                        <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" required></textarea>
+                        <textarea id="message" name="message" rows="5" 
+                                  class="w-full px-4 py-3 border @error('message') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition" 
+                                  required>{{ old('message') }}</textarea>
+                        @error('message')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-
-                    <div id="form-success" class="hidden p-4 bg-green-50 text-green-700 rounded-lg border border-green-200 transition-all duration-300">
-                        <!-- Success message will appear here -->
+                    
+                    <!-- Honeypot field for spam prevention -->
+                    <div class="hidden">
+                        <label for="honeypot">Leave this field empty</label>
+                        <input type="text" id="honeypot" name="honeypot" value="">
                     </div>
-
-                    <button type="submit" class="w-full bg-hotel-gold text-white py-3 px-6 rounded-lg font-medium hover:bg-yellow-600 transition duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg">
-                        <i class="fas fa-paper-plane mr-2"></i>Send Message
+                    
+                    <!-- Google reCAPTCHA (optional) -->
+                    @if(config('services.google.recaptcha_site_key'))
+                    <div class="mb-4">
+                        <div class="g-recaptcha" data-sitekey="{{ config('services.google.recaptcha_site_key') }}"></div>
+                        @error('g-recaptcha-response')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    @endif
+                    
+                    <button type="submit" class="w-full bg-hotel-gold text-white py-3 px-6 rounded-lg font-medium hover:bg-yellow-600 transition duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg" id="submit-btn">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        <span id="submit-text">Send Message</span>
+                        <span id="loading-spinner" class="hidden">
+                            <i class="fas fa-spinner fa-spin mr-2"></i>Sending...
+                        </span>
                     </button>
                 </form>
             </div>

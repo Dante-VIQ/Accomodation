@@ -536,6 +536,58 @@
                 <div class="text-sm md:text-right">Designed by Daniel Mwangi</div>
             </div>
         </footer>
+
+        <script>
+        // Form submission handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const submitText = document.getElementById('submit-text');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    // Basic client-side validation
+                    const honeypot = document.getElementById('honeypot').value;
+                    if (honeypot !== '') {
+                        e.preventDefault();
+                        alert('Spam detected!');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    submitText.classList.add('hidden');
+                    loadingSpinner.classList.remove('hidden');
+                    submitBtn.disabled = true;
+                    
+                    // The form will submit normally to Laravel
+                });
+            }
+            
+            // Auto-hide success/error messages after 10 seconds
+            setTimeout(() => {
+                const successMsg = document.getElementById('form-success');
+                const errorMsg = document.querySelector('.bg-red-50');
+                
+                if (successMsg) {
+                    successMsg.style.opacity = '0';
+                    successMsg.style.transition = 'opacity 0.5s';
+                    setTimeout(() => successMsg.remove(), 500);
+                }
+                
+                if (errorMsg) {
+                    errorMsg.style.opacity = '0';
+                    errorMsg.style.transition = 'opacity 0.5s';
+                    setTimeout(() => errorMsg.remove(), 500);
+                }
+            }, 10000);
+        });
+    </script>
+    
+    <!-- Google reCAPTCHA script -->
+    @if(config('services.google.recaptcha_site_key'))
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @endif
     {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script> --}}
     {{-- <script>
         // Simple mobile nav toggle
