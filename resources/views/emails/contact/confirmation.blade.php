@@ -7,20 +7,20 @@ We have received your message and will get back to you within 24 hours.
 
 **Here's a summary of your inquiry:**
 
-**Subject:** {{ $message->subject }}  
-**Message:**  
+**Subject:** {{ $message->subject }}
+**Message:**
 {{ Str::limit($message->message, 200) }}
 
-**Our Contact Information:**  
-📍 123 Luxury Avenue, Resort City  
-📞 {{ $hotelPhone }}  
+**Our Contact Information:**
+📍 Free Area Lanet, Nakuru City
+📞 {{ $hotelPhone }}
 ✉️ {{ $hotelEmail }}
 
 If you have any urgent inquiries, please call us directly at {{ $hotelPhone }}.
 
-We look forward to assisting you with your {{ strtolower($message->subject) }}.
+We look forward to assisting you with your request.
 
-Best regards,  
+Best regards,
 The Team at {{ $hotelName }}
 
 <x-mail::subcopy>

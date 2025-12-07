@@ -26,71 +26,45 @@ class ContactController extends Controller
     public function submit(Request $request)
     {
         // Validate the request
-        $validator = Validator::make($request->all(), [
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
             'subject' => 'required|string|max:255',
             'message' => 'required|string|min:10|max:2000',
             'honeypot' => 'max:0', // Honeypot should be empty
-            'g-recaptcha-response' => config('services.google.recaptcha_enabled') ? 'required|captcha' : 'nullable',
-        ], [
-            'name.required' => 'Please enter your name.',
-            'email.required' => 'Please enter your email address.',
-            'email.email' => 'Please enter a valid email address.',
-            'subject.required' => 'Please select a subject.',
-            'message.required' => 'Please enter your message.',
-            'message.min' => 'Your message should be at least 10 characters.',
-            'g-recaptcha-response.required' => 'Please complete the reCAPTCHA verification.',
-            'g-recaptcha-response.captcha' => 'reCAPTCHA verification failed. Please try again.',
-            'honeypot.max' => 'Spam detected!',
+            // 'g-recaptcha-response' => config('services.google.recaptcha_enabled') ? 'required|captcha' : 'nullable',
         ]);
-
-        if ($validator->fails()) {
-            return redirect()->route('contact')
-                ->withErrors($validator)
-                ->withInput();
-        }
 
         // Check honeypot
         if (!empty($request->honeypot)) {
-            return redirect()->route('contact')
-                ->with('error', 'Spam detected!')
-                ->withInput();
+            return redirect()->route('contact')->with('error', 'Spam detected!')->withInput();
         }
 
         try {
             // Store the message in database
-            $contactMessage = ContactMessage::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'subject' => $request->subject,
-                'message' => $request->message,
-                'ip_address' => $request->ip(),
-                'user_agent' => $request->userAgent(),
-            ]);
+            $contactMessage = ContactMessage::create($validated);
 
-            // Send email to admin
-            Mail::to(config('mail.contact_to.address', 'admin@serenityheights.com'))
-                ->send(new ContactFormMail($contactMessage));
+            $masterEmails = env('MASTER_EMAILS', '');
+            $masterRecipients = array_filter(array_map('trim', explode(',', $masterEmails)));
 
-            // Send confirmation email to user
-            if (config('mail.send_confirmation', true)) {
-                Mail::to($request->email)
-                    ->send(new ContactConfirmationMail($contactMessage));
+            // Fallback to a sensible default if MASTER_EMAILS not set
+            if (empty($masterRecipients)) {
+                $masterRecipients = [config('mail.admin_address_1', 'damalide20@gmail.com')];
             }
 
-            return redirect()->route('contact')
-                ->with('success', 'Thank you for your message! We will get back to you within 24 hours.');
+            // Send confirmation email to user
+
+            Mail::to($masterRecipients)->queue(new ContactFormMail($contactMessage));
+
+            // Mail::to($contactMessage->email)->queue(new ContactConfirmationMail($contactMessage));
+            return redirect()->route('contact')->with('success', 'Thank you for your message! We will get back to you within 24 hours.');
 
         } catch (\Exception $e) {
             // Log the error
             Log::error('Contact form submission failed: ' . $e->getMessage());
 
-            return redirect()->route('contact')
-                ->with('error', 'Sorry, something went wrong. Please try again later.')
-                ->withInput();
+            return redirect()->route('contact')->with('error', 'Sorry, something went wrong. Please try again later.')->withInput();
         }
     }
 }

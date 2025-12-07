@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use App\Models\ContactMessage;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
@@ -30,7 +31,10 @@ class ContactConfirmationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Contact Confirmation Mail',
+            subject: 'New Appointment Request from ' . $this->contactMessage->name,
+            replyTo: [
+                new Address($this->contactMessage->email, $this->contactMessage->name),
+            ],
         );
     }
 
@@ -41,18 +45,19 @@ class ContactConfirmationMail extends Mailable
     {
         return new Content(
             view: 'emails.contact.confirmation',
+            with: ['contactMessage' => $this->contactMessage],
         );
     }
 
         public function build(): self
     {
-        return $this->subject('Thank you for contacting Serenity Heights Hotel')
+        return $this->subject('Thank you for contacting Villaveh Gameview')
             ->markdown('emails.contact.confirmation')
             ->with([
                 'message' => $this->contactMessage,
-                'hotelName' => 'Serenity Heights Hotel',
-                'hotelPhone' => '+1 (555) 123-4567',
-                'hotelEmail' => 'info@serenityheights.com',
+                'hotelName' => 'Villaveh Gameview',
+                'hotelPhone' => '+4795065157',
+                'hotelEmail' => 'veronicamuthoniholtet@gmail.com',
             ]);
     }
     /**

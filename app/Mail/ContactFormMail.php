@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use App\Models\ContactMessage;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
@@ -29,9 +30,7 @@ class ContactFormMail extends Mailable
      */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Contact Form Mail',
-        );
+        return new Envelope(subject: 'New Appointment Request from ' . $this->contactMessage->name, replyTo: [new Address($this->contactMessage->email, $this->contactMessage->name)]);
     }
 
     /**
@@ -39,12 +38,10 @@ class ContactFormMail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(
-            markdown: 'emails.contact.admin',
-        );
+        return new Content(markdown: 'emails.contact.admin', with: ['contactMessage' => $this->contactMessage]);
     }
 
-        /**
+    /**
      * Build the message.
      */
     public function build(): self
@@ -53,8 +50,9 @@ class ContactFormMail extends Mailable
             ->markdown('emails.contact.admin')
             ->with([
                 'message' => $this->contactMessage,
-                'hotelName' => 'Serenity Heights Hotel',
-                'hotelPhone' => '+1 (555) 123-4567',
+                'hotelName' => 'Villaveh Gameview',
+                'hotelPhone' => '+4795065157',
+                'hotelEmail' => 'veronicamuthoniholtet@gmail.com',
             ]);
     }
     /**
