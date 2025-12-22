@@ -38,7 +38,7 @@ class ContactFormMail extends Mailable
      */
     public function content(): Content
     {
-        return new Content(markdown: 'emails.contact.admin', with: ['contactMessage' => $this->contactMessage]);
+        return new Content(view: 'emails.contact.admin', with: ['contactMessage' => $this->contactMessage]);
     }
 
     /**

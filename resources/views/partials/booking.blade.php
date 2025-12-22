@@ -1,6 +1,6 @@
 <div class="relative lg:hidden flex">
     <!-- Trigger Button -->
-    <button wire:click="showForm" type="button"
+    <button wire:click="showModal" type="button"
         class="px-6 py-3 btn-primary text-white rounded-lg shadow lg:hidden">
         Book Now
     </button>

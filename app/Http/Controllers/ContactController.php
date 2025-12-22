@@ -54,7 +54,6 @@ class ContactController extends Controller
             }
 
             // Send confirmation email to user
-
             Mail::to($masterRecipients)->queue(new ContactFormMail($contactMessage));
 
             // Mail::to($contactMessage->email)->queue(new ContactConfirmationMail($contactMessage));

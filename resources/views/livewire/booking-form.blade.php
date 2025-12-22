@@ -8,7 +8,7 @@
                 <div class="flex flex-wrap sm:gap-4 gap-2">
                     <a href="#" class="hidden sm:flex btn-primary mr-4 text-white">Learn more</a>
 
-                    @include('partials.booking')
+                    {{-- @include('partials.booking') --}}
                     <a href="#" class="btn-white">Contact us</a>
                 </div>
             </div>

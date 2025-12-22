@@ -26,11 +26,11 @@ class BookingForm extends Component
 
     public function mount()
     {
-        $this->showForm();
+        $this->showModal();
         return view('partials.booking');
     }
     // Add methods to show/hide modal
-    public function showForm()
+    public function showModal()
     {
         $this->showModal = true;
     }
