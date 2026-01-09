@@ -1,12 +1,12 @@
 <div class="relative lg:hidden flex">
     <!-- Trigger Button -->
-    <button wire:click="showModal" type="button"
+    <button wire:click="showForm" type="button"
         class="px-6 py-3 btn-primary text-white rounded-lg shadow lg:hidden">
         Book Now
     </button>
 
     <!-- Livewire Modal -->
-    @if($showModal)
+    @if($showForm)
         <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-90 overflow-y-scroll">
             <div class="bg-white w-full max-w-2xl mx-4 p-8 rounded-xl shadow-lg relative ">
                 <!-- Close Button -->

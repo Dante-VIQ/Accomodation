@@ -11,7 +11,7 @@ class BookingForm extends Component
 {
     public $full_name, $phone, $check_in, $check_out, $adults, $children, $time;
     public $room_id;
-    public $showModal = false; // Add this
+    public $showForm = false; // Add this
 
     protected $rules = [
         'room_id' => 'required|exists:rooms,id',
@@ -26,18 +26,17 @@ class BookingForm extends Component
 
     public function mount()
     {
-        $this->showModal();
-        return view('partials.booking');
+        $this->showForm = false;
     }
     // Add methods to show/hide modal
-    public function showModal()
+    public function showForm()
     {
-        $this->showModal = true;
+        $this->showForm = true;
     }
 
     public function closeForm()
     {
-        $this->showModal = false;
+        $this->showForm = false;
         $this->reset(); // Optional: clear form when closing
     }
 
