@@ -18,7 +18,7 @@
                         </div>
                         <div class="flex flex-row py-3 px-4 border-t border-gray-100 dark:border-gray-600">
                             <div class="w-1/2 flex flex-row dark:text-gray-400"><span
-                                    class="mr-1">$</span><span>{{ number_format($room->price, 2) }} Night</span>
+                                    class="mr-1">Ksh.</span><span>{{ number_format($room->price, 2) }} Night</span>
                             </div>
 
                         </div>
