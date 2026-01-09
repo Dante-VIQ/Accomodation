@@ -14,5 +14,11 @@
     </section>
 
     <!-- Blog Section -->
-    <blog-card />
+    <section class="py-16 bg-white">
+        <div class="container mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-2">Latest news from our blog</h2>
+            <span class="block text-lg text-gray-500 text-center mb-10">News &amp; Blog</span>
+            <livewire:blog-card />
+        </div>
+    </section>
 </x-guest-layout>
