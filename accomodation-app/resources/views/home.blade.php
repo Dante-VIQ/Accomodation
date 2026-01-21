@@ -7,12 +7,12 @@
                 <h2 class="text-2xl font-light mb-2">Welcome to VillaVeroh</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6">Book an appartment for your vacation</h1>
                 <div  x-data="{ open: false }" class="lg:flex block space-x-4">
-                    <a href="#" class="hidden sm:flex btn-primary">Learn more</a>
-                    <button type="submit" class="lg:hidden block btn-primary">
+                    <a href="/about" class="hidden sm:flex btn-primary">Learn more</a>
+                    <button type="submit" class="hidden btn-primary">
                         Book Now
 
                     </button>
-                    <a href="#" class="btn-white">Contact us</a>
+                    <a href="/contact" class="btn-white">Contact us</a>
                 </div>
             </div>
         </div>
