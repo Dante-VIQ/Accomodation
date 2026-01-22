@@ -49,11 +49,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Route::get('/book', function () {
-//     return view('booknow');
-// })->name('booknow');
+Route::get('/book', function () {
+    return view('book');
+})->name('book');
 
-Route::get('/book', BookingForm::class)->name('partials.booking');
+// Route::get('/book', BookingForm::class)->name('booknow');
 
 Route::get('blog/{blog}', ShowBlog::class)->name('blog-single');
 
