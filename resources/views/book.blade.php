@@ -102,7 +102,7 @@
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center">
                 <div class="w-10 h-10 bg-luxe-blue rounded-full flex items-center justify-center mr-3">
-                    <span class="text-white font-bold text-lg">LH</span>
+                    <span class="text-white font-bold text-lg">VG</span>
                 </div>
                 <h1 class="font-playfair text-2xl font-bold text-luxe-blue">Villaveh Gameview</h1>
             </div>
