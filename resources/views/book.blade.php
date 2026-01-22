@@ -433,8 +433,7 @@
                             <div class="mt-8 pt-6 border-t border-gold-light">
                                 <p class="text-gold-light">
                                     <i class="fas fa-phone-alt mr-2"></i> Need assistance? Call our reservation team:
-                                    <a href="tel:+18001234567" class="font-bold hover:text-white transition">+1 (800)
-                                        123-4567</a>
+                                    <a href="tel:+18001234567" class="font-bold hover:text-white transition">+254 110474109</a>
                                 </p>
                             </div>
                         </div>
@@ -449,12 +448,12 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <h3 class="font-playfair text-2xl font-bold mb-2">Luxe Heritage Hotel</h3>
-                    <p class="text-gold-light">World-class luxury accommodation since 1928</p>
+                    <h3 class="font-playfair text-2xl font-bold mb-2">Villaveh Gameview</h3>
+                    <p class="text-gold-light">World-class luxury accommodation</p>
                 </div>
                 <div class="text-center md:text-right">
-                    <p class="mb-2">123 Luxury Avenue, Prestige District, 10001</p>
-                    <p>© 2023 Luxe Heritage Hotel. All rights reserved.</p>
+                    <p class="mb-2">41, Free Area, Nakuru City</p>
+                    <p>© 2026 Villaveh Gameview. All rights reserved.</p>
                 </div>
             </div>
         </div>

@@ -157,7 +157,7 @@
                         </div>
 
                         <!-- Directions Section -->
-                        <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        {{-- <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
                             <h4 class="font-semibold text-hotel-navy mb-3 flex items-center">
                                 <i class="fas fa-route text-hotel-gold mr-2"></i>Get Directions to the Hotel
                             </h4>
@@ -173,7 +173,7 @@
                                     <i class="fas fa-directions mr-2"></i>Get Directions
                                 </button>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- Directions Panel (hidden by default) -->
                         <div id="directions-section" class="hidden mb-6">
