@@ -38,7 +38,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg,webp|max:20480',
+            'image' => 'required|image|mimes:jpg,png,jpeg,webp,avif|max:20480',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
         ]);
