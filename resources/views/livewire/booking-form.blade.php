@@ -6,10 +6,12 @@
                 <h2 class="sm:text-xl text-lg font-light mb-2 text-white">Welcome to VillaVeh GameView</h2>
                 <h1 class="sm:text-4xl text-2xl font-bold mb-6 text-white">Book an appartment for your vacation</h1>
                 <div class="flex flex-wrap sm:gap-4 gap-2">
-                    <a href="#" class="hidden sm:flex btn-primary mr-4 text-white">Learn more</a>
-
-                    @include('partials.booking')
-                    <a href="#" class="btn-white">Contact us</a>
+                    {{-- <a href="#" class="hidden sm:flex btn-primary mr-4 text-white">Learn more</a> --}}
+                    <a href="/book"
+                        class="px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition">
+                        Book Now
+                    </a>
+                    <a href="/contact" class="btn-white">Contact us</a>
                 </div>
             </div>
         </div>

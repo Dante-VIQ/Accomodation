@@ -26,7 +26,7 @@
 <section class="py-16 bg-white">
     <div class="container mx-auto grid md:grid-cols-2 gap-8">
         <div class="bg-white rounded-lg shadow p-6">
-            <div class="w-full h-64 bg-cover bg-center rounded mb-4" style="background-image: url('images/about.jpg');">
+            <div class="w-full h-64 bg-cover bg-center rounded mb-4" style="background-image: url('images/hero3.png');">
             </div>
             <h2 class="text-2xl font-bold mb-2">The most recommended vacation rental</h2>
             <p class="text-gray-600">A small river named Duden flows by their place and supplies it with the necessary
@@ -169,8 +169,8 @@
 <!-- Call to Action Section -->
 <section class="relative  py-16 bg-emerald-600 text-white text-center"
     style="background-image: url('images/bg_1.jpg'); background-size: cover; background-position: center;">
-    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-    <div class="relative py-16">
+    <div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-green-50 to-transparent -z-10"></div>
+    <div class="py-16">
         <h2 class="text-3xl font-bold mb-4 text-gray-200">Ready to get started</h2>
         <p class="mb-6 font-semibold text-gray-100">It’s safe to book online with us! Get your dream stay in clicks or
             drop us a line with your

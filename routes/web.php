@@ -2,6 +2,7 @@
 
 use App\Livewire\ShowBlog;
 use App\Models\Testimonial;
+use App\Livewire\BookingForm;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RoomController;
@@ -48,9 +49,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/booknow', function () {
-    return view('booknow');
-})->name('booknow');
+// Route::get('/book', function () {
+//     return view('booknow');
+// })->name('booknow');
+
+Route::get('/book', BookingForm::class)->name('partials.booking');
 
 Route::get('blog/{blog}', ShowBlog::class)->name('blog-single');
 

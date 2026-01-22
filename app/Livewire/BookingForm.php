@@ -4,9 +4,11 @@ namespace App\Livewire;
 
 use App\Models\Booking;
 use Livewire\Component;
+use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
+#[Layout('layouts.app')]
 class BookingForm extends Component
 {
     public $full_name, $phone, $check_in, $check_out, $adults, $children, $time;
