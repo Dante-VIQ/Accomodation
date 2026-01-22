@@ -465,28 +465,28 @@
             const rooms = [{
                     id: 'deluxe',
                     name: 'Deluxe Room',
-                    price: 350,
+                    price: 4000,
                     description: 'Elegant room with city view, king bed, and marble bathroom',
                     amenities: ['City View', 'King Bed', 'Marble Bathroom', 'Free WiFi']
                 },
                 {
                     id: 'executive',
                     name: 'Executive Suite',
-                    price: 550,
+                    price: 6000,
                     description: 'Spacious suite with separate living area and executive lounge access',
                     amenities: ['Living Area', 'Lounge Access', 'Panoramic View', 'Premium Amenities']
                 },
                 {
                     id: 'presidential',
                     name: 'Presidential Suite',
-                    price: 850,
+                    price: 8000,
                     description: 'Lavish suite with private terrace, butler service, and dining area',
                     amenities: ['Private Terrace', 'Butler Service', 'Dining Area', 'Jacuzzi']
                 },
                 {
                     id: 'penthouse',
                     name: 'Penthouse',
-                    price: 1200,
+                    price: 10000,
                     description: 'Ultimate luxury with rooftop access, private pool, and 360° views',
                     amenities: ['Rooftop Access', 'Private Pool', '360° Views', 'Personal Chef Available']
                 }
@@ -616,7 +616,7 @@
                 // Calculate total
                 const total = roomPrice * nights;
                 document.getElementById('summary-total').textContent =
-                    total > 0 ? `$${total.toLocaleString()}.00` : '$0.00';
+                    total > 0 ? `Ksh. ${total.toLocaleString()}.00` : 'Ksh. 0.00';
             }
 
             // Form submission
