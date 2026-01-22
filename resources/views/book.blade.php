@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservation | Luxe Heritage Hotel</title>
+    <title>Reservation | VillaVeh Gameview</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -104,15 +104,15 @@
                 <div class="w-10 h-10 bg-luxe-blue rounded-full flex items-center justify-center mr-3">
                     <span class="text-white font-bold text-lg">LH</span>
                 </div>
-                <h1 class="font-playfair text-2xl font-bold text-luxe-blue">Luxe Heritage Hotel</h1>
+                <h1 class="font-playfair text-2xl font-bold text-luxe-blue">Villaveh Gameview</h1>
             </div>
             <nav>
                 <ul class="flex space-x-8">
-                    <li><a href="#" class="font-medium hover:text-gold transition">Home</a></li>
-                    <li><a href="#" class="font-medium hover:text-gold transition">Rooms & Suites</a></li>
-                    <li><a href="#" class="font-medium text-gold border-b-2 border-gold pb-1">Reservations</a>
+                    <li><a href="/" class="font-medium hover:text-gold transition">Home</a></li>
+                    <li><a href="/rent" class="font-medium hover:text-gold transition">Rooms & Suites</a></li>
+                    {{-- <li><a href="#" class="font-medium text-gold border-b-2 border-gold pb-1">Reservations</a> --}}
                     </li>
-                    <li><a href="#" class="font-medium hover:text-gold transition">Contact</a></li>
+                    {{-- <li><a href="#" class="font-medium hover:text-gold transition">Contact</a></li> --}}
                 </ul>
             </nav>
         </div>
@@ -155,7 +155,7 @@
                             <p class="text-gray-600 mb-8">Please provide your information to complete the reservation.
                                 All fields marked with * are required.</p>
 
-                                                        <form id="bookingForm" class="space-y-8">
+                            <form id="bookingForm" wire:submit.prevent="save" class="space-y-8">
                                 <!-- Guest Information -->
                                 <div>
                                     <h4
@@ -330,7 +330,8 @@
                                 <!-- Terms and Submit -->
                                 <div class="pt-6 border-t border-gray-200">
                                     <div class="flex items-start mb-8">
-                                        <input type="checkbox" id="terms" name="terms" required class="mt-1 mr-3">
+                                        <input type="checkbox" id="terms" name="terms" required
+                                            class="mt-1 mr-3">
                                         <label for="terms" class="text-sm text-gray-700">
                                             I agree to the <a href="#"
                                                 class="text-gold font-medium hover:underline">Terms & Conditions</a>
@@ -395,7 +396,7 @@
                                 <div class="pt-4">
                                     <div class="flex justify-between text-lg font-bold mb-2">
                                         <span>Total:</span>
-                                        <span id="summary-total">$0.00</span>
+                                        <span id="summary-total">Ksh. 0.00</span>
                                     </div>
                                     <p class="text-sm text-gray-500">Includes all taxes and service charges</p>
                                 </div>
@@ -504,7 +505,7 @@
                 roomCard.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
                         <h4 class="font-bold text-lg">${room.name}</h4>
-                        <span class="text-gold font-bold text-xl">$${room.price}<span class="text-sm font-normal">/night</span></span>
+                        <span class="text-gold font-bold text-xl">Ksh. ${room.price}<span class="text-sm font-normal">/night</span></span>
                     </div>
                     <p class="text-gray-600 text-sm mb-4">${room.description}</p>
                     <div class="flex flex-wrap gap-2 mb-4">
@@ -653,7 +654,8 @@
 
                     // Show success message
                     alert(
-                        'Thank you! Your reservation has been successfully submitted. A confirmation email will be sent shortly.');
+                        'Thank you! Your reservation has been successfully submitted. A confirmation email will be sent shortly.'
+                        );
 
                     // Reset form (in a real app, you might redirect instead)
                     bookingForm.reset();
