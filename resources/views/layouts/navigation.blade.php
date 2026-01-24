@@ -16,7 +16,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Home') }}
                     </x-nav-link>
-                    <x-nav-link href="rent" :active="request()->routeIs('rent')">
+                    <x-nav-link href="reservation" :active="request()->routeIs('rent')">
                         {{ __('Rooms') }}
                     </x-nav-link>
                     <x-nav-link href="services" :active="request()->routeIs('services')">
@@ -103,7 +103,7 @@
             <x-responsive-nav-link href="dashboard" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="rent" :active="request()->routeIs('rent')">
+            <x-responsive-nav-link href="reservation" :active="request()->routeIs('rent')">
                 {{ __('Rooms') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="blog" :active="request()->routeIs('blog')">

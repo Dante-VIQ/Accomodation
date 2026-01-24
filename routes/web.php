@@ -31,7 +31,7 @@ Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
 
-Route::get('/rent', function () {
+Route::get('/reservation', function () {
     return view('rent');
 })->name('rent');
 
