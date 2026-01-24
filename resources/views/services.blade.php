@@ -1,6 +1,6 @@
 <x-guest-layout>
 <section class="relative bg-cover bg-center bg-no-repeat min-h-[80vh] lg:min-h-[90vh] overflow-hidden"
-        style="background-image: url('images/luxury-hotel-entrance.jpg');">
+        style="background-image: url('images/image_3.jpg');">
         <!-- Enhanced overlay with gradient -->
         <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
         
