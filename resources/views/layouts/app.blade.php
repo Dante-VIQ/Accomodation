@@ -32,6 +32,8 @@
             }
         }
     </script>
+
+<script src="https://analytics.ahrefs.com/analytics.js" data-key="HobhOa+QCCEpkfABYJb44Q" async></script>
     @livewireStyles
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
