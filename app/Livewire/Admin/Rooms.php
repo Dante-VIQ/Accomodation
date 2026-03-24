@@ -67,51 +67,61 @@ class Rooms extends Component
         $this->showForm = true;
     }
 
-    public function save()
-    {
-        $this->validate();
+public function save()
+{
+    $this->validate();
 
-        $amenitiesArray = $this->amenities ? array_map('trim', explode(',', $this->amenities)) : [];
-
-        $imagePaths = $this->existingImages;
-        if ($this->tempImages) {
-            foreach ($this->tempImages as $image) {
-                $path = $image->store('rooms', 'public_direct');
-                $imagePaths[] = $path;
-            }
+    // Convert empty strings to null for integer fields (only those that exist in the rooms table)
+    $integerFields = ['price', 'capacity', 'display_order'];
+    foreach ($integerFields as $field) {
+        if ($this->$field === '' || $this->$field === null) {
+            $this->$field = null;
         }
-
-        $data = [
-            'name' => $this->name,
-            'type' => $this->type,
-            'description' => $this->description,
-            'price' => $this->price,
-            'category' => $this->category,
-            'size' => $this->size,
-            'capacity' => $this->capacity,
-            'bed_type' => $this->bed_type,
-            'badge' => $this->badge,
-            'best_season' => $this->best_season,
-            'amenities' => $amenitiesArray,
-            'images' => $imagePaths,
-            'is_popular' => $this->is_popular,
-            'is_featured' => $this->is_featured,
-            'display_order' => $this->display_order,
-            'is_active' => $this->is_active,
-        ];
-
-        if ($this->editingId) {
-            $room = Room::findOrFail($this->editingId);
-            $room->update($data);
-            session()->flash('message', 'Room updated successfully.');
-        } else {
-            Room::create($data);
-            session()->flash('message', 'Room created successfully.');
-        }
-
-        $this->cancel();
-        $this->dispatch('refreshRooms');
     }
+
+    // Process amenities
+    $amenitiesArray = $this->amenities ? array_map('trim', explode(',', $this->amenities)) : [];
+
+    // Process images
+    $imagePaths = $this->existingImages;
+    if ($this->tempImages) {
+        foreach ($this->tempImages as $image) {
+            $path = $image->store('rooms', 'public');
+            $imagePaths[] = $path;
+        }
+    }
+
+    $data = [
+        'name' => $this->name,
+        'type' => $this->type,
+        'description' => $this->description,
+        'price' => $this->price,
+        'category' => $this->category,
+        'size' => $this->size,
+        'capacity' => $this->capacity,
+        'bed_type' => $this->bed_type,
+        'badge' => $this->badge,
+        'best_season' => $this->best_season,
+        'amenities' => $amenitiesArray,
+        'images' => $imagePaths,
+        'is_popular' => $this->is_popular,
+        'is_featured' => $this->is_featured,
+        'display_order' => $this->display_order ?? 0,
+        'is_active' => $this->is_active,
+    ];
+
+    if ($this->editingId) {
+        $room = Room::findOrFail($this->editingId);
+        $room->update($data);
+        session()->flash('message', 'Room updated successfully.');
+    } else {
+        Room::create($data);
+        session()->flash('message', 'Room created successfully.');
+    }
+
+    $this->cancel();
+    $this->dispatch('refreshRooms');
+}
 
     public function delete($id)
     {

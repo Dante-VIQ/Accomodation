@@ -18,7 +18,7 @@
       <a href="/contact" class="hover:text-amber-200 transition-colors duration-300">Contact</a>
 
       @role('master|engineer')
-      <a href="/admin" class="hover:text-amber-200 transition-colors duration-300">Admin</a>
+      <a href="/Admin/index" class="hover:text-amber-200 transition-colors duration-300">Admin</a>
       @endrole
 
       <!-- Auth Buttons (Desktop) -->
@@ -62,7 +62,7 @@
     <a href="/contact" class="hover:text-amber-300 transition">Contact</a>
 
     @role('master|engineer')
-    <a href="/admin" class="hover:text-amber-300 transition">Admin</a>
+    <a href="/Admin/index" class="hover:text-amber-300 transition">Admin</a>
     @endrole
 
     <!-- Auth Buttons (Mobile) -->

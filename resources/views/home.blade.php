@@ -1,6 +1,6 @@
 <section id="home" class="relative h-[55vh] min-h-[500px] flex items-center justify-center bg-cover bg-center bg-no-repeat py-0" style="background-image: url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-blend-mode: overlay;">
   <div class="hero-overlay absolute inset-0 bg-black/40"></div>
-  <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto">
+  <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto py-0 sm:py-5">
     <div class="inline-block px-4 py-1 border border-amber-300/50 rounded-full text-amber-100 text-sm tracking-wider mb-6 backdrop-blur-sm">✦ NAKURU'S FINEST BOUTIQUE BnB ✦</div>
     <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.2] tracking-tight serif-heading gold-glow">
       Villaveh <span class="italic text-amber-200">Gameview</span>

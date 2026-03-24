@@ -59,23 +59,21 @@ class Room extends Model
         return $query->where('is_active', true);
     }
 
-    public function getImageUrlAttribute()
-    {
-        return $this->image ? Storage::url($this->image) : asset('images/default-room.jpg');
-    }
+public function getImageUrlAttribute()
+{
+    return $this->image ? asset('uploads/' . $this->image) : asset('images/default-room.jpg');
+}
 
-    public function getGalleryImagesAttribute()
-    {
-        $images = is_array($this->images) ? $this->images : json_decode($this->images, true);
-        
-        if ($images && count($images) > 0) {
-            return array_map(function($image) {
-                return Storage::url($image);
-            }, $images);
-        }
-        
+public function getGalleryImagesAttribute()
+{
+    $images = $this->images ?? [];
+    if (empty($images)) {
         return [$this->image_url];
     }
+    return array_map(function($image) {
+        return asset('uploads/' . $image);
+    }, $images);
+}
 
     public function getAmenitiesArrayAttribute()
     {

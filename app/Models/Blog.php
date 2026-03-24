@@ -14,4 +14,9 @@ class Blog extends Model
         'title',
         'body',
     ];
+
+    public function getImageUrlAttribute()
+{
+    return $this->image ? asset('uploads/' . $this->image) : asset('images/default-blog.jpg');
+}
 }

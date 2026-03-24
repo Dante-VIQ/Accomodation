@@ -103,10 +103,10 @@
                 <div class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                     {{-- Image Gallery --}}
                     <div class="relative h-80 overflow-hidden"
-                         x-data="{ currentImage: 0, images: {{ json_encode($room->gallery_images) }} }"
+                         x-data="{ currentImage: 0, images: {{ json_encode($room->images) }} }"
                          x-init="if(images.length > 1) { interval = setInterval(() => { currentImage = (currentImage + 1) % images.length }, 5000) }">
                         <template x-for="(img, idx) in images" :key="idx">
-                            <img :src="img" :alt="{{ json_encode($room->name) }}" 
+                            <img :src="img" :alt="{{ json_encode($room->name) }}"
                                  class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
                                  :class="currentImage === idx ? 'opacity-100' : 'opacity-0'">
                         </template>
@@ -172,7 +172,7 @@
                         {{-- Price & Booking --}}
                         <div class="flex items-center justify-between mt-4 pt-3 border-t border-stone-200">
                             <div>
-                                <span class="text-3xl font-bold text-amber-800">${{ number_format($room->price, 0) }}</span>
+                                <span class="text-xl font-bold text-amber-800">Ksh. {{ number_format($room->price, 0) }}</span>
                                 <span class="text-stone-500 text-sm">/ night</span>
                                 @if($room->best_season)
                                     <div class="text-xs text-stone-400">⭐ Best in {{ $room->best_season }}</div>

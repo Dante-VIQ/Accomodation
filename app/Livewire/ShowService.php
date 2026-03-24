@@ -2,242 +2,182 @@
 
 namespace App\Livewire;
 
-use App\Models\Room;
+use App\Models\Service;
+use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class ShowService extends Component
 {
-    use WithPagination;
-    
-    public $rooms = [];
+    public $services = [];
+
     public $categories = [];
+
     public $categoryCounts = [];
+
     public $activeCategory = 'all';
-    public $activeType = 'all';
+
     public $modalOpen = false;
-    public $selectedRoom = null;
-    public $amenitiesModalOpen = false;
-    public $amenitiesModalRoom = null;
+
+    public $selectedService = null;
+
+    public $featuresModalOpen = false;
+
+    public $featuresModalService = null;
+
     public $showToast = false;
+
     public $toastMessage = '';
-    public $favorites = [];
-    public $sortBy = 'default';
-    public $searchQuery = '';
-    public $perPage = 6;
-    
-    protected $queryString = [
-        'activeCategory' => ['except' => 'all'],
-        'sortBy' => ['except' => 'default'],
-        'searchQuery' => ['except' => ''],
-        'page' => ['except' => 1],
-    ];
-    
+
+    public $newsletterEmail = '';
+
     protected $categoryIcons = [
-        'Presidential' => 'fas fa-crown',
-        'Safari' => 'fas fa-tree',
-        'Garden' => 'fas fa-leaf',
-        'Executive' => 'fas fa-briefcase',
-        'default' => 'fas fa-bed'
+        'safari' => 'fas fa-tree',
+        'wellness' => 'fas fa-spa',
+        'dining' => 'fas fa-utensils',
+        'adventure' => 'fas fa-hiking',
+        'concierge' => 'fas fa-concierge-bell',
+        'default' => 'fas fa-tag',
     ];
-    
+
     protected $categoryDescriptions = [
-        'Presidential' => 'Ultimate luxury with private amenities and panoramic views',
-        'Safari' => 'Wildlife-facing suites with authentic African design',
-        'Garden' => 'Secluded sanctuaries surrounded by lush gardens',
-        'Executive' => 'Sophisticated spaces for business and leisure travelers'
+        'safari' => 'Immersive wildlife encounters with expert guides',
+        'wellness' => 'Rejuvenating treatments and holistic wellness',
+        'dining' => 'Culinary excellence with local and international flavors',
+        'adventure' => 'Thrilling experiences for the adventurous spirit',
+        'concierge' => 'Personalized service tailored to your needs',
     ];
-    
+
     public function mount()
     {
-        $this->loadFavorites();
+        $this->loadServices();
     }
-    
-    public function loadFavorites()
+
+    public function loadServices()
     {
-        $this->favorites = json_decode(request()->cookie('favorite_rooms', '[]'), true);
-    }
-    
-    public function getRoomsProperty()
-    {
-        $query = Room::active()->orderBy('display_order')->orderBy('id');
-        
-        // Apply category filter
+        $query = Service::active()->orderBy('display_order')->orderBy('id');
+
         if ($this->activeCategory !== 'all') {
             $query->where('category', $this->activeCategory);
         }
-        
-        // Apply type filter
-        if ($this->activeType !== 'all') {
-            $query->where('type', $this->activeType);
-        }
-        
-        // Apply search filter
-        if (!empty($this->searchQuery)) {
-            $query->where(function($q) {
-                $q->where('name', 'like', '%' . $this->searchQuery . '%')
-                  ->orWhere('description', 'like', '%' . $this->searchQuery . '%')
-                  ->orWhere('category', 'like', '%' . $this->searchQuery . '%');
-            });
-        }
-        
-        // Apply sorting
-        switch ($this->sortBy) {
-            case 'price_asc':
-                $query->orderBy('price', 'asc');
-                break;
-            case 'price_desc':
-                $query->orderBy('price', 'desc');
-                break;
-            case 'name_asc':
-                $query->orderBy('name', 'asc');
-                break;
-            case 'rating_desc':
-                $query->orderBy('rating', 'desc');
-                break;
-            default:
-                $query->orderBy('display_order')->orderBy('id');
-        }
-        
-        return $query->paginate($this->perPage);
-    }
-    
-    public function getCategoriesListProperty()
-    {
-        $allCategories = Room::active()
+
+        $this->services = $query->get();
+
+        // Get all categories with counts
+        $allCategories = Service::active()
             ->select('category')
             ->distinct()
-            ->whereNotNull('category')
             ->pluck('category')
+            ->filter()
             ->toArray();
-        
-        $categories = [];
-        $counts = [];
-        
+
+        $this->categories = $allCategories;
+
+        // Calculate category counts
+        $this->categoryCounts = [];
         foreach ($allCategories as $category) {
-            $counts[$category] = Room::active()->where('category', $category)->count();
+            $this->categoryCounts[$category] = Service::active()->where('category', $category)->count();
         }
-        $counts['all'] = Room::active()->count();
-        
-        return [
-            'list' => $allCategories,
-            'counts' => $counts
-        ];
+        $this->categoryCounts['all'] = Service::active()->count();
     }
-    
+
     public function setCategory($category)
     {
         $this->activeCategory = $category;
-        $this->resetPage();
+        $this->loadServices();
     }
-    
-    public function setType($type)
+
+    public function quickView($serviceId)
     {
-        $this->activeType = $type;
-        $this->resetPage();
-    }
-    
-    public function setSortBy($sort)
-    {
-        $this->sortBy = $sort;
-        $this->resetPage();
-    }
-    
-    public function updatedSearchQuery()
-    {
-        $this->resetPage();
-    }
-    
-    public function quickView($roomId)
-    {
-        $this->selectedRoom = Room::findOrFail($roomId);
+        $this->selectedService = Service::findOrFail($serviceId);
         $this->modalOpen = true;
     }
-    
-    public function showAmenities($roomId)
+
+    public function showFeatures($serviceId)
     {
-        $this->amenitiesModalRoom = Room::findOrFail($roomId);
-        $this->amenitiesModalOpen = true;
+        $this->featuresModalService = Service::findOrFail($serviceId);
+        $this->featuresModalOpen = true;
     }
-    
+
     public function closeModal()
     {
         $this->modalOpen = false;
-        $this->selectedRoom = null;
+        $this->selectedService = null;
     }
-    
-    public function closeAmenitiesModal()
+
+    public function closeFeaturesModal()
     {
-        $this->amenitiesModalOpen = false;
-        $this->amenitiesModalRoom = null;
+        $this->featuresModalOpen = false;
+        $this->featuresModalService = null;
     }
-    
-    public function toggleFavorite($roomId)
+
+    public function bookService($serviceId)
     {
-        if (in_array($roomId, $this->favorites)) {
-            $this->favorites = array_diff($this->favorites, [$roomId]);
-            $this->toastMessage = 'Removed from favorites';
-        } else {
-            $this->favorites[] = $roomId;
-            $this->toastMessage = 'Added to favorites';
-        }
-        
-        // Save to cookie (30 days)
-        cookie()->queue('favorite_rooms', json_encode($this->favorites), 43200);
-        $this->showToast = true;
-        
-        // Auto-hide toast
-        $this->dispatch('hide-toast');
-    }
-    
-    public function bookRoom($roomId)
-    {
-        $room = Room::findOrFail($roomId);
-        
-        // Store booking data in session or redirect
-        session()->flash('booking_room', $roomId);
-        
-        $this->toastMessage = "{$room->name} booking initiated!";
+        $service = Service::findOrFail($serviceId);
+
+        // Here you would typically:
+        // 1. Save booking request to database
+        // 2. Send notification email to admin
+        // 3. Send confirmation email to user
+
+        $this->toastMessage = "{$service->name} booking request sent!";
         $this->showToast = true;
         $this->modalOpen = false;
-        
+
+        // Auto-hide toast after 3 seconds
         $this->dispatch('hide-toast');
-        
-        // Redirect to booking page
-        // return redirect()->route('booking.create', ['room' => $roomId]);
+
+        // You can also dispatch an event to parent components
+        $this->dispatch('service-booked', serviceId: $serviceId);
     }
-    
-    public function resetFilters()
+
+    public function subscribeNewsletter()
     {
-        $this->activeCategory = 'all';
-        $this->activeType = 'all';
-        $this->searchQuery = '';
-        $this->sortBy = 'default';
-        $this->resetPage();
+        $this->validate([
+            'newsletterEmail' => 'required|email',
+        ]);
+
+        // Here you would typically save to newsletter subscribers table
+        // NewsletterSubscriber::create(['email' => $this->newsletterEmail]);
+
+        $this->toastMessage = 'Subscribed successfully!';
+        $this->showToast = true;
+        $this->newsletterEmail = '';
+
+        $this->dispatch('hide-toast');
     }
-    
+
+    #[On('hide-toast')]
+    public function hideToast()
+    {
+        $this->showToast = false;
+    }
+
     public function getCategoryIcon($category)
     {
         return $this->categoryIcons[$category] ?? $this->categoryIcons['default'];
     }
-    
+
     public function getCategoryDescription($category)
     {
-        return $this->categoryDescriptions[$category] ?? 'Luxurious accommodations for discerning travelers';
+        return $this->categoryDescriptions[$category] ?? 'Curated experiences for unforgettable moments';
     }
-    
+
     public function render()
     {
-        return view('livewire.room-card', [
-            'rooms' => $this->rooms,
-            'categoriesList' => $this->categories_list,
+        return view('livewire.service-card', [
             'categoryIcons' => $this->categoryIcons,
             'categoryDescriptions' => $this->categoryDescriptions,
-            'favorites' => $this->favorites,
             'activeCategory' => $this->activeCategory,
-            'activeType' => $this->activeType,
-            'sortBy' => $this->sortBy,
-            'searchQuery' => $this->searchQuery,
+            'services' => $this->services,
+            'categories' => $this->categories,
+            'categoryCounts' => $this->categoryCounts,
+            'modalOpen' => $this->modalOpen,
+            'selectedService' => $this->selectedService,
+            'featuresModalOpen' => $this->featuresModalOpen,
+            'featuresModalService' => $this->featuresModalService,
+            'showToast' => $this->showToast,
+            'toastMessage' => $this->toastMessage,
+            'newsletterEmail' => $this->newsletterEmail,
         ]);
     }
 }
