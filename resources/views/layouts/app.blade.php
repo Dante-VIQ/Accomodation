@@ -6,15 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    {{-- Dynamic Meta Tags - These will be overridden by child pages --}}
+    <title>@yield('title', 'Villa Veh - Luxury Accommodation in Nakuru, Kenya')</title>
+    <meta name="description" content="@yield('meta_description', 'Experience luxury at Villa Veh in Nakuru, Kenya. GameView neighbours Lake Nakuru National park. Book high-end rooms with premium amenities near the big five.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'luxury hotel Nakuru, Lake Nakuru accommodation, Villa Veh, game view lodge, Kenya safari hotel, big five viewing, Nakuru National Park lodging, vacation rental Kenya')">
 
-    <!-- Fonts -->
+    {{-- Canonical URL --}}
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
+
+    {{-- Robots Control --}}
+    <meta name="robots" content="@yield('robots', 'index, follow')">
+
+    {{-- Open Graph Tags --}}
+    <meta property="og:site_name" content="Villa Veh">
+    <meta property="og:url" content="@yield('og_url', url()->current())">
+    <meta property="og:title" content="@yield('og_title', 'Villa Veh - Luxury Accommodation in Nakuru')">
+    <meta property="og:description" content="@yield('og_description', 'Experience luxury at Villa Veh with game view overlooking Lake Nakuru National Park. Book your stay near the big five.')">
+    <meta property="og:image" content="@yield('og_image', asset('images/villa-veh-hero.jpg'))">
+    <meta property="og:type" content="@yield('og_type', 'website')">
+    <meta property="og:locale" content="en_US">
+
+    {{-- Twitter Cards --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@VillaVeh">
+    <meta name="twitter:title" content="@yield('twitter_title', 'Villa Veh - Luxury Accommodation')">
+    <meta name="twitter:description" content="@yield('twitter_description', 'GameView neighbours Lake Nakuru National park. Home to some of the big five.')">
+    <meta name="twitter:image" content="@yield('twitter_image', asset('images/villa-veh-hero.jpg'))">
+
+    {{-- Geo Tags for Local SEO --}}
+    <meta name="geo.region" content="KE-31"> {{-- KE-31 is Nakuru county code --}}
+    <meta name="geo.placename" content="Nakuru, Kenya">
+    <meta name="geo.position" content="-0.3031;36.0800"> {{-- Nakuru coordinates --}}
+    <meta name="ICBM" content="-0.3031, 36.0800">
+
+    {{-- Fonts and Styles --}}
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-        <script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- Tailwind Configuration --}}
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -32,8 +66,13 @@
             }
         }
     </script>
+
+    {{-- Schema.org markup will be injected by child pages in the schema section --}}
+    @yield('schema')
+      {{-- Schema Stack --}}
+    @stack('schema')
+
     @livewireStyles
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -41,74 +80,54 @@
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
 
-        <!-- Page Heading -->
-        @isset($header)
+        {{-- Page Header --}}
+        @hasSection('header')
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
+                    @yield('header')
                 </div>
             </header>
-        @endisset
+        @endif
 
-        <!-- Page Content -->
+        {{-- Breadcrumbs for SEO --}}
+        @hasSection('breadcrumbs')
+            <div class="bg-gray-50 border-b">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                    @yield('breadcrumbs')
+                </div>
+            </div>
+        @endif
+
+        {{-- Main Content --}}
         <main>
-            {{ $slot }}
+            @yield('content')
         </main>
     </div>
 
-            <footer class="bg-gray-900 text-white py-10 p-5">
-            <div class="container mx-auto grid md:grid-cols-4 gap-8">
-                <div>
-                    <h2 class="text-xl font-bold mb-2"><a href="#" class="logo">VillaVeh</a></h2>
-                    <p class="mb-2">VillaVeh GameView neighbours Lake Nakuru National park. Home to some of the big
-                        five.</p>
-                    <a href="#" class="text-emerald-400">Read more <span
-                            class="fa fa-chevron-right text-xs"></span></a>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold mb-2">Services</h2>
-                    <ul class="list-disc pl-5">
-                        <li>Map Direction</li>
-                        <li>Accomodation Services</li>
-                        <li>Great Experience</li>
-                        <li>Perfect central location</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold mb-2">Tag cloud</h2>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-emerald-600 px-2 py-1 rounded">apartment</span>
-                        <span class="bg-emerald-600 px-2 py-1 rounded">home</span>
-                        <span class="bg-emerald-600 px-2 py-1 rounded">vacation</span>
-                        <span class="bg-emerald-600 px-2 py-1 rounded">rental</span>
-                        <span class="bg-emerald-600 px-2 py-1 rounded">rent</span>
-                        <span class="bg-emerald-600 px-2 py-1 rounded">house</span>
-                        <span class="bg-emerald-600 px-2 py-1 rounded">place</span>
-                        <span class="bg-emerald-600 px-2 py-1 rounded">drinks</span>
-                    </div>
-                </div>
-                <div>
-                    <h2 class="text-xl font-bold mb-2">Subscribe</h2>
-                    <form action="#" class="flex flex-col gap-2">
-                        <input type="email" placeholder="Enter email address" class="input" />
-                        <button type="submit" class="btn-primary">Subscribe</button>
-                    </form>
-                    <h2 class="text-xl font-bold mt-5 mb-2">Follow us</h2>
-                    <ul class="flex gap-3">
-                        <li><a href="#" class="text-white"><span class="fa fa-twitter"></span></a></li>
-                        <li><a href="#" class="text-white"><span class="fa fa-facebook"></span></a></li>
-                        <li><a href="#" class="text-white"><span class="fa fa-instagram"></span></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div
-                class="container mx-auto mt-10 border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
-                <div class="text-sm">&copy; {{ date('Y') }} VillaVeh. All rights reserved.</div>
-                <div class="text-sm md:text-right">Designed by Daniel Mwangi</div>
-            </div>
-        </footer>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script> --}}
+    {{-- Footer --}}
+  <footer class="bg-stone-900 text-stone-300 py-12 border-t border-stone-800">
+    <div class="container mx-auto px-6 md:px-12">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-center md:text-left">
+          <div class="logo-font text-2xl font-semibold text-white">Villaveh <span class="text-amber-400">Gameview</span></div>
+          <p class="text-sm mt-2 max-w-sm">Luxury BnB • Nakuru City • Where the savannah meets sublime comfort.</p>
+        </div>
+        <div class="flex gap-6 text-xl">
+          <a href="#" class="hover:text-amber-400 transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-amber-400 transition"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-amber-400 transition"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="hover:text-amber-400 transition"><i class="fab fa-tripadvisor"></i></a>
+        </div>
+        <div class="text-sm text-stone-400">
+          © 2025 Villaveh Gameview — Regal Stays in Nakuru
+        </div>
+      </div>
+    </div>
+  </footer>
+
     @livewireScripts
+
+    {{-- Custom Scripts --}}
     <script>
         function testimonialSlider(totalItems) {
             return {
@@ -118,27 +137,38 @@
 
                 start() {
                     this.updateWidth();
-
                     window.addEventListener('resize', () => this.updateWidth());
 
                     setInterval(() => {
                         const itemsPerView = window.innerWidth >= 768 ? 3 : 1;
                         const maxIndex = this.totalItems - itemsPerView;
-
-                        this.currentIndex =
-                            (this.currentIndex >= maxIndex) ? 0 : this.currentIndex + 1;
+                        this.currentIndex = (this.currentIndex >= maxIndex) ? 0 : this.currentIndex + 1;
                     }, 3500);
                 },
 
                 updateWidth() {
                     const wrapperWidth = document.querySelector('[x-data]').clientWidth;
-                    this.slideWidth = window.innerWidth >= 768 ?
-                        wrapperWidth / 3 :
-                        wrapperWidth;
+                    this.slideWidth = window.innerWidth >= 768 ? wrapperWidth / 3 : wrapperWidth;
                 }
             }
         }
     </script>
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if(menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+    // smooth anchor closing mobile
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  </script>
+    {{-- Additional page-specific scripts --}}
+    @yield('scripts')
 </body>
-
 </html>

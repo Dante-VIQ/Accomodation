@@ -123,4 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'grand_opening_date' => env('GRAND_OPENING_DATE', '2026-04-01 00:00:00'),
+    'grand_opening_discount' => env('GRAND_OPENING_DISCOUNT', 20),
+    'grand_opening_promo_code' => env('GRAND_OPENING_PROMO_CODE', 'WELCOME20'),
 ];

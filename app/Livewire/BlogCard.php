@@ -4,19 +4,37 @@ namespace App\Livewire;
 
 use App\Models\Blog;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class BlogCard extends Component
 {
+    use WithPagination;
 
-    public $blogs;
+    public $search = '';
+    public $perPage = 9;
 
-    public function mount()
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'page' => ['except' => 1],
+    ];
+
+    public function updatingSearch()
     {
-        $this->blogs = Blog::all();
+        $this->resetPage();
     }
-    
+
     public function render()
     {
-        return view('livewire.blog-card');
+        $posts = Blog::query()
+            ->when($this->search, function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                      ->orWhere('body', 'like', '%' . $this->search . '%');
+            })
+            ->latest('created_at')
+            ->paginate($this->perPage);
+
+        return view('livewire.blog-card', [
+            'posts' => $posts,
+        ]);
     }
 }

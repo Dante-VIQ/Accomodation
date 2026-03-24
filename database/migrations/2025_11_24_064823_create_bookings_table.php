@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -12,14 +13,17 @@ return new class extends Migration {
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('room_id')->constrained()->onDelete('cascade');
-            $table->string('full_name');
-            $table->string('phone');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('room_id')->constrained();
             $table->date('check_in');
             $table->date('check_out');
             $table->integer('adults');
-            $table->integer('children')->nullable();
-            $table->string('time')->nullable();
+            $table->integer('children')->default(0);
+            $table->text('special_requests')->nullable();
+            $table->string('status')->default('pending'); // pending, confirmed, cancelled
+            $table->decimal('total_price', 10, 2);
+            $table->string('payment_status')->default('unpaid'); // unpaid, paid, refunded
+            $table->string('preferred_time')->nullable();
             $table->timestamps();
         });
     }

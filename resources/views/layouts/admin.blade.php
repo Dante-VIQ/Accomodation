@@ -1,287 +1,62 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    @livewireStyles
-
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
-
-        .font-family-karla {
-            font-family: karla;
-        }
-
-        .bg-sidebar {
-            background: #3d68ff;
-        }
-
-        .cta-btn {
-            color: #3d68ff;
-        }
-
-        .upgrade-btn {
-            background: #1947ee;
-        }
-
-        .upgrade-btn:hover {
-            background: #0038fd;
-        }
-
-        .active-nav-link {
-            background: #1947ee;
-        }
-
-        .nav-item:hover {
-            background: #1947ee;
-        }
-
-        .account-link:hover {
-            background: #3d68ff;
-        }
-    </style>
-    <!-- Scripts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Admin Dashboard') | Villaveh Gameview</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .sidebar-active { background-color: #D4AF37; color: #0A2463; }
+    </style>
 </head>
-
-<body class="font-family-karla antialiased">
-
-    <div class="bg-gray-100">
-        {{-- @include('layouts.navigation') --}}
-
-        <!-- Page Heading -->
-        @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
-
-        <header x-data="{ isOpen: false }" class="w-full bg-sidebar py-5 px-6 sm:hidden">
-            <div class="flex items-center justify-between w-full">
-                <a href="/" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
-                <button @click="isOpen = !isOpen" class="text-white text-3xl focus:outline-none">
-                    <template x-if="!isOpen">
-                        <span><i class="fas fa-bars"></i></span>
-                    </template>
-                    <template x-if="isOpen">
-                        <span><i class="fas fa-times"></i></span>
-                    </template>
-                </button>
+<body class="bg-gray-100">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-lg flex-shrink-0 overflow-y-auto">
+            <div class="p-6 border-b">
+                <h1 class="text-2xl font-['Cormorant_Garamond'] font-bold text-luxe-blue">Admin Panel</h1>
+                <p class="text-xs text-gray-500 mt-1">Villaveh Gameview</p>
             </div>
-
-            <!-- Dropdown Nav -->
-            <nav x-show="isOpen" class="flex flex-col pt-4 bg-sidebar w-full left-0 z-20">
-                <a href="index.html" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
-                    <i class="fas fa-tachometer-alt mr-3"></i>
-                    Dashboard
+            <nav class="p-4 space-y-2">
+                <a href="{{ url('Admin.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-amber-50 transition {{ request()->routeIs('admin.dashboard') ? 'sidebar-active' : '' }}">
+                    <i class="fas fa-tachometer-alt w-5"></i> Dashboard
                 </a>
-                <a href="/admin/services"
-                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-sticky-note mr-3"></i>
-                    Services
+                <a href="/Admin/bookings" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-amber-50 transition {{ request()->routeIs('admin.bookings') ? 'sidebar-active' : '' }}">
+                    <i class="fas fa-calendar-check w-5"></i> Bookings
                 </a>
-
-                <a href="/admin/rooms"
-                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-table mr-3"></i>
-                    Rooms
+                <a href="/Admin/rooms" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-amber-50 transition {{ request()->routeIs('admin.rooms') ? 'sidebar-active' : '' }}">
+                    <i class="fas fa-bed w-5"></i> Rooms
                 </a>
-
-                <a href="/admin/blogs"
-                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-align-left mr-3"></i>
-                    Blogs
+                <a href="{{ route('services.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-amber-50 transition {{ request()->routeIs('admin.services') ? 'sidebar-active' : '' }}">
+                    <i class="fas fa-concierge-bell w-5"></i> Services
                 </a>
-                <a href="/admin/bookings"
-                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-tablet-alt mr-3"></i>
-                    Bookings
+                <a href="{{ route('blogs.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-amber-50 transition {{ request()->routeIs('admin.blog') ? 'sidebar-active' : '' }}">
+                    <i class="fas fa-newspaper w-5"></i> Blog
                 </a>
-
-                {{-- <a href="/admin/user/roles/index"
-                    class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                    <i class="fas fa-calendar mr-3"></i>
-                    Roles
-                </a> --}}
-
-                <select class="m-4 p-2 rounded bg-white text-gray-600 font-semibold focus:outline-none">
-                    <option>
-                        <x-responsive-nav-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-responsive-nav-link>
-                    </option>
-                    <option>
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-responsive-nav-link>
-                        </form>
-                    </option>
-                </select>
             </nav>
-            <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                <i class="fas fa-plus mr-3"></i> New Report
-            </button> -->
-        </header>
-        <!-- Page Content -->
-        <main class="flex">
-
-            <!-- Mobile Header & Nav -->
-
-            <aside class="relative bg-sidebar h-screen w-64 hidden sm:block shadow-xl">
-                <div class="p-6">
-                    <a href="/"
-                        class="text-white text-3xl font-semibold uppercase hover:text-gray-300">VillaVeh</a>
-                    <button
-                        class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
-                        <i class="fas fa-plus mr-3"></i> New Report
+            <div class="absolute bottom-0 w-64 p-4 border-t">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="flex items-center gap-3 text-gray-600 hover:text-red-600 w-full px-4 py-2">
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </button>
-                </div>
-                <nav class="text-white text-base font-semibold pt-3">
-                    <a href="/Admin/index" class="flex items-center active-nav-link text-white py-4 pl-6 nav-item">
-                        <i class="fas fa-tachometer-alt mr-3"></i>
-                        Dashboard
-                    </a>
-                    <a href="/admin/services"
-                        class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-sticky-note mr-3"></i>
-                        Services
-                    </a>
+                </form>
+            </div>
+        </aside>
 
-                    <a href="/admin/rooms"
-                        class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-table mr-3"></i>
-                        Rooms
-                    </a>
-
-                    <a href="/admin/blogs"
-                        class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-align-left mr-3"></i>
-                        Blogs
-                    </a>
-                    <a href="/Admin/bookings"
-                        class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-tablet-alt mr-3"></i>
-                        Bookings
-                    </a>
-
-                    {{-- <a href="/Admin/user/roles/index"
-                        class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
-                        <i class="fas fa-calendar mr-3"></i>
-                        Roles
-                    </a> --}}
-
-                </nav>
-
-            </aside>
-
-            {{ $slot }}
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-gray-50">
+            <div class="p-6">
+                @yield('content')
+            </div>
         </main>
     </div>
 
-
-    <!-- AlpineJS -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
-        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
-    <!-- ChartJS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
-        integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
-
-    <script>
-        var chartOne = document.getElementById('chartOne');
-        var myChart = new Chart(chartOne, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        var chartTwo = document.getElementById('chartTwo');
-        var myLineChart = new Chart(chartTwo, {
-            type: 'line',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
     @livewireScripts
 </body>
-
 </html>

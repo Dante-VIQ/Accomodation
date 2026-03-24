@@ -1,3 +1,5 @@
-<x-admin-layout>
-    <livewire:admin.bookings-table />
-</x-admin-layout>
+@extends('layouts.admin')
+
+@section('content')
+    <livewire:admin.bookings />
+@endsection

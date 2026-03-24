@@ -1,49 +1,47 @@
-<div class="bg-gray-50 min-h-screen">
-    <!-- Breadcrumb -->
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6" style="background-image: url('images/image_1.jpg');">
-        <nav class="text-sm text-gray-500" aria-label="Breadcrumb">
-            <ol class="list-none p-0 inline-flex space-x-1">
-                <li>
-                    <a href="{{ route('dashboard') }}" class="text-gray-500 hover:text-gray-700">Home</a>
-                </li>
-                <li>
-                    <span class="mx-2">/</span>
-                </li>
-                <li>
-                    <a href="{{ route('blog') }}" class="text-gray-500 hover:text-gray-700">Blogs</a>
-                </li>
-                <li>
-                    <span class="mx-2">/</span>
-                </li>
-                <li class="text-gray-700 font-semibold">{{ $blog->title }}</li>
-            </ol>
-        </nav>
-    </div>
+{{-- resources/views/livewire/blog-show.blade.php --}}
+<div class="bg-[#FDF9F3]">
+    <div class="container mx-auto px-6 md:px-12 py-12 md:py-20">
+        <div class="max-w-4xl mx-auto">
+            <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 text-amber-700 hover:text-amber-800 mb-6">
+                <i class="fas fa-arrow-left"></i> Back to all articles
+            </a>
 
-    <!-- Content Section -->
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <!-- Featured Image -->
+            @if($post->image)
+            <div class="mb-8 rounded-2xl overflow-hidden shadow-xl">
+                <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" class="w-full h-auto object-cover">
+            </div>
+            @endif
 
-        <img src="{{ asset($blog->image) }}" alt="{{ $blog->title }}" class="mx-auto mb-4 w-full h-40 rounded-lg" />
+            <div class="text-stone-500 text-sm mb-4">
+                {{ $post->created_at->format('F d, Y') }}
+            </div>
 
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-['Cormorant_Garamond'] font-bold text-stone-800 mb-6">
+                {{ $post->title }}
+            </h1>
 
-        <!-- Title & Meta -->
-        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
-            {{ $blog->title }}
-        </h1>
-        <div class="flex items-center text-sm text-gray-500 mb-10">
-            {{-- <span>By {{ $blog->author->name ?? 'Admin' }}</span> --}}
-            <span class="mx-2">•</span>
-            <span>{{ $blog->created_at->diffForHumans() }}</span>
+            <div class="prose prose-stone max-w-none">
+                {!! nl2br(e($post->body)) !!}
+            </div>
+
+            {{-- Optional: Share buttons --}}
+            <div class="mt-12 pt-6 border-t border-stone-200">
+                <h3 class="text-lg font-semibold mb-3">Share this story</h3>
+                <div class="flex gap-3">
+                    <a href="https://twitter.com/intent/tweet?text={{ urlencode($post->title) }}&url={{ urlencode(url()->current()) }}" 
+                       target="_blank" class="bg-stone-100 hover:bg-amber-100 p-2 rounded-full transition">
+                        <i class="fab fa-twitter text-stone-600"></i>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" 
+                       target="_blank" class="bg-stone-100 hover:bg-amber-100 p-2 rounded-full transition">
+                        <i class="fab fa-facebook-f text-stone-600"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url()->current()) }}&title={{ urlencode($post->title) }}" 
+                       target="_blank" class="bg-stone-100 hover:bg-amber-100 p-2 rounded-full transition">
+                        <i class="fab fa-linkedin-in text-stone-600"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-
-        <!-- Body -->
-        <article class="prose prose-lg prose-gray max-w-none leading-relaxed text-gray-800 space-y-4">
-            @foreach (preg_split("/\r\n|\r|\n/", $blog->body) as $paragraph)
-                @if (trim($paragraph) !== '')
-                    <p>{{ $paragraph }}</p>
-                @endif
-            @endforeach
-        </article>
     </div>
 </div>

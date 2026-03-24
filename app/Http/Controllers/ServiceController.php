@@ -2,125 +2,121 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    public function __construct()
-    {
-        // Only master, admin, engineer allowed
-        $this->middleware('role:engineer|master');
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $services = Service::latest()->paginate(10);
+        $services = Service::orderBy('display_order')->paginate(10);
         return view('Admin.services.index', compact('services'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Admin.services.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'required|image|mimes:jpg,png,jpeg,webp,avif|max:20480',
+        $validated = $request->validate([
+            'image' => 'required|image|max:2048',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'category' => 'nullable|string|max:100',
+            'price' => 'nullable|numeric|min:0',
+            'price_unit' => 'nullable|string|max:50',
+            'duration' => 'nullable|string|max:100',
+            'group_size' => 'nullable|integer|min:1',
+            'features' => 'nullable|string',
+            'is_popular' => 'boolean',
+            'full_description' => 'nullable|string',
+            'display_order' => 'nullable|integer',
+            'is_active' => 'boolean',
         ]);
 
-        // Store image using public_direct disk
-        $path = $request->file('image')->store('services', 'public_direct');
-        $imagePath = 'uploads/' . $path;
+        // Handle image upload
+        $imagePath = $request->file('image')->store('services', 'public_direct');
+        $validated['image'] = $imagePath;
 
-        Service::create([
-            'image' => $imagePath,
-            'name' => $request->name,
-            'description' => $request->description,
-        ]);
+        // Process features: convert comma-separated string to array
+        if (!empty($validated['features'])) {
+            $validated['features'] = array_map('trim', explode(',', $validated['features']));
+        } else {
+            $validated['features'] = [];
+        }
+
+        // Set defaults for boolean fields
+        $validated['is_popular'] = $request->has('is_popular');
+        $validated['is_active'] = $request->has('is_active');
+        $validated['display_order'] = $validated['display_order'] ?? 0;
+
+        Service::create($validated);
 
         return redirect()->route('services.index')->with('success', 'Service created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Service $service)
     {
-        //
+        return view('Admin.services.edit', compact('service'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, Service $service)
     {
-        $service = Service::findOrFail($id); // Fixed: added this line
-        return view('admin.services.edit', compact('service'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id) // Changed to accept ID
-    {
-        $request->validate([
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,webp|max:20480',
+        $validated = $request->validate([
+            'image' => 'nullable|image|max:2048',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'category' => 'nullable|string|max:100',
+            'price' => 'nullable|numeric|min:0',
+            'price_unit' => 'nullable|string|max:50',
+            'duration' => 'nullable|string|max:100',
+            'group_size' => 'nullable|integer|min:1',
+            'features' => 'nullable|string',
+            'is_popular' => 'boolean',
+            'full_description' => 'nullable|string',
+            'display_order' => 'nullable|integer',
+            'is_active' => 'boolean',
         ]);
 
-        $service = Service::findOrFail($id); // Find the service
-        $data = [
-            'name' => $request->name,
-            'description' => $request->description,
-        ];
-
-        // If new image is uploaded
+        // Handle image upload if new image is provided
         if ($request->hasFile('image')) {
-            // Delete old image from public folder
-            if ($service->image && file_exists(public_path($service->image))) {
-                unlink(public_path($service->image));
+            // Delete old image
+            if ($service->image) {
+                Storage::disk('public')->delete($service->image);
             }
-
-            // Save new image using public_direct
-            $path = $request->file('image')->store('services', 'public_direct');
-            $data['image'] = 'uploads/' . $path;
+            $imagePath = $request->file('image')->store('services', 'public_direct');
+            $validated['image'] = $imagePath;
         }
 
-        $service->update($data);
+        // Process features: convert comma-separated string to array
+        if (!empty($validated['features'])) {
+            $validated['features'] = array_map('trim', explode(',', $validated['features']));
+        } else {
+            $validated['features'] = [];
+        }
+
+        // Set boolean fields
+        $validated['is_popular'] = $request->has('is_popular');
+        $validated['is_active'] = $request->has('is_active');
+        $validated['display_order'] = $validated['display_order'] ?? 0;
+
+        $service->update($validated);
 
         return redirect()->route('services.index')->with('success', 'Service updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id) // Changed to accept ID
+    public function destroy(Service $service)
     {
-        $service = Service::findOrFail($id);
-
-        // Delete image from public folder
-        if ($service->image && file_exists(public_path($service->image))) {
-            unlink(public_path($service->image));
+        // Delete image from storage
+        if ($service->image) {
+            Storage::disk('public')->delete($service->image);
         }
-
         $service->delete();
 
-        return back()->with('success', 'Service deleted.');
+        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
     }
 }
