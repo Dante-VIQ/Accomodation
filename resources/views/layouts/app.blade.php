@@ -67,6 +67,8 @@
         }
     </script>
 
+<script src="https://analytics.ahrefs.com/analytics.js" data-key="HobhOa+QCCEpkfABYJb44Q" async></script>
+
     {{-- Schema.org markup will be injected by child pages in the schema section --}}
     @yield('schema')
       {{-- Schema Stack --}}
