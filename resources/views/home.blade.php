@@ -1,5 +1,5 @@
 <section id="home"
-  class="relative h-[70vh] min-h-[80vh] flex items-center justify-center bg-cover bg-center bg-no-repeat py-0 lg:py-20"
+  class="relative h-[70vh] min-h-[100vh] flex items-center justify-center bg-cover bg-center bg-no-repeat py-20 lg:py-32"
   style="background-image: url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-blend-mode: overlay;">
   <div class="hero-overlay absolute inset-0 bg-black/40"></div>
   <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto py-0">
