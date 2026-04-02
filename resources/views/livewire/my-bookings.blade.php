@@ -1,4 +1,4 @@
-<div class="bg-[#FDF9F3] min-h-screen">
+<div class="bg-[#FDF9F3] min-h-screen mt-10">
     
     {{-- Hero Section --}}
     <section class="relative h-[40vh] min-h-[300px] flex items-center justify-center bg-cover bg-center bg-no-repeat" 
@@ -45,7 +45,7 @@
                 </div>
                 <h3 class="text-2xl font-['Cormorant_Garamond'] font-semibold text-stone-800 mb-2">No Bookings Yet</h3>
                 <p class="text-stone-500 max-w-md mx-auto mb-6">Ready for an unforgettable stay at Villaveh Gameview? Begin your journey today.</p>
-                <a href="{{ route('reservation') }}" class="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-lg transition shadow-md">
+                <a href="/reservation" class="inline-flex items-center gap-2 bg-amber-700 hover:bg-amber-800 text-white px-6 py-3 rounded-lg transition shadow-md">
                     <i class="fas fa-calendar-plus"></i> Book Your Stay
                 </a>
             </div>

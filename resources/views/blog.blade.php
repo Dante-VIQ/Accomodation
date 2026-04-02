@@ -1,4 +1,3 @@
-{{-- resources/views/blog/index.blade.php --}}
 @extends('layouts.app')
 
 @section('title', 'Travel Stories & Insights | Villaveh Gameview Blog')

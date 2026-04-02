@@ -1,4 +1,3 @@
-{{-- resources/views/livewire/blog-index.blade.php --}}
 <div>
     {{-- Hero Section --}}
     <section class="relative h-[45vh] min-h-[400px] flex items-center justify-center bg-cover bg-center bg-no-repeat" 
@@ -42,7 +41,7 @@
             <div wire:loading.remove class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($posts as $post)
                 <article class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500">
-                    <a href="{{ route('blog', $post->id) }}" class="block">
+                    <a href="/blog, $post->id" class="block">
                         <div class="relative h-56 overflow-hidden">
                             <img src="{{ Storage::url($post->image) }}" alt="{{ $post->title }}" 
                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">

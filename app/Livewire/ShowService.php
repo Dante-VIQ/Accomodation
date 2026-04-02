@@ -164,7 +164,7 @@ class ShowService extends Component
 
     public function render()
     {
-        return view('livewire.service-card', [
+        return view('livewire.show-service', [
             'categoryIcons' => $this->categoryIcons,
             'categoryDescriptions' => $this->categoryDescriptions,
             'activeCategory' => $this->activeCategory,

@@ -4,7 +4,7 @@
     
     {{-- Hero Section --}}
     <section class="relative h-[45vh] min-h-[400px] flex items-center justify-center bg-cover bg-center bg-no-repeat" 
-             style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('{{ asset('images/rooms-hero.jpg') }}');">
+             style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://unsplash.com/photos/chocolate-cookies-on-white-tray-p59ux9myc74');">
         <div class="relative z-10 text-center text-white px-6">
             <span class="inline-block px-4 py-1 border border-amber-300/50 rounded-full text-amber-100 text-sm tracking-wider mb-4 backdrop-blur-sm">
                 ✦ CURATED STAYS ✦

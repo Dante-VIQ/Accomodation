@@ -46,7 +46,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
     {{-- Tailwind Configuration --}}
     <script>
         tailwind.config = {
@@ -84,8 +84,8 @@
 
         {{-- Page Header --}}
         @hasSection('header')
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <header class="bg-white shadow hidden">
+                <div class="max-w-7xl mx-auto py-0 px-4 sm:px-6 lg:px-8">
                     @yield('header')
                 </div>
             </header>
@@ -93,7 +93,7 @@
 
         {{-- Breadcrumbs for SEO --}}
         @hasSection('breadcrumbs')
-            <div class="bg-gray-50 border-b">
+            <div class="bg-gray-50 border-b hidden">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
                     @yield('breadcrumbs')
                 </div>
@@ -121,7 +121,7 @@
           <a href="#" class="hover:text-amber-400 transition"><i class="fab fa-tripadvisor"></i></a>
         </div>
         <div class="text-sm text-stone-400">
-          © 2025 Villaveh Gameview — Regal Stays in Nakuru
+          © 2026 Villaveh Gameview — Regal Stays in Nakuru
         </div>
       </div>
     </div>

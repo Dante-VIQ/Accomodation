@@ -38,7 +38,7 @@ class Rooms extends Component
         'is_active' => 'boolean',
     ];
 
-    public function create()
+    public function openForm()
     {
         $this->resetForm();
         $this->showForm = true;

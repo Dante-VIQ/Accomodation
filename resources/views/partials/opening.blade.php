@@ -74,7 +74,7 @@
                 </div>
 
                 <div class="flex flex-wrap justify-center gap-4 mt-4">
-                    <a href="{{ route('reservation') }}" class="inline-flex items-center gap-2 bg-white text-amber-800 hover:bg-amber-50 px-8 py-3 rounded-lg font-semibold transition shadow-lg">
+                    <a href="/book" class="inline-flex items-center gap-2 bg-white text-amber-800 hover:bg-amber-50 px-8 py-3 rounded-lg font-semibold transition shadow-lg">
                         <i class="fas fa-calendar-check"></i> Book Your Stay Now
                     </a>
                     <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 border border-white text-white hover:bg-white/10 px-8 py-3 rounded-lg font-semibold transition">
