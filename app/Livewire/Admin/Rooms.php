@@ -31,10 +31,10 @@ class Rooms extends Component
         'badge' => 'nullable|string',
         'best_season' => 'nullable|string',
         'amenities' => 'nullable|string',
-        'images.*' => 'image|max:2048',
+        'tempImages.*' => 'image|max:2048',
         'is_popular' => 'boolean',
         'is_featured' => 'boolean',
-        'display_order' => 'integer',
+        'display_order' => 'nullable|integer',
         'is_active' => 'boolean',
     ];
 
@@ -69,6 +69,10 @@ class Rooms extends Component
 
 public function save()
 {
+
+    try {
+        $this->validate();
+   
     $this->validate();
 
     // Convert empty strings to null for integer fields (only those that exist in the rooms table)
@@ -121,6 +125,12 @@ public function save()
 
     $this->cancel();
     $this->dispatch('refreshRooms');
+
+    } catch (\Exception $e) {
+        session()->flash('error', 'Failed to save room: ' . $e->getMessage());
+        throw $e; // optional, rethrow for Livewire
+    }
+
 }
 
     public function delete($id)

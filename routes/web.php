@@ -89,11 +89,11 @@ Route::middleware(['auth', 'role:master|engineer'])->group(function () {
     Route::post('/Admin/roles/{user}', [UserRoleController::class, 'update'])->name('admin.roles.update');
 
     Route::get('Admin/index', [AdminController::class, 'index'])->name('Admin.index');
-    // Route::resource('admin/rooms', RoomController::class);
+    Route::resource('admin/rooms', RoomController::class);
 
     Route::resource('admin/services', ServiceController::class);
     Route::resource('admin/blogs', BlogController::class);
-    Route::get('/admin/testimonials', [TestimonialController::class])->name('admin.testimonials');
+    Route::get('/admin/testimonials', [TestimonialController::class, 'index'])->name('admin.testimonials');
     Route::post('/admin/testimonial/{id}/approve', function ($id) {
         $t = Testimonial::findOrFail($id);
         $t->approved = true;

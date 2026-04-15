@@ -1,5 +1,5 @@
 @extends('layouts.admin')
 
 @section('content')
-    <livewire:admin.rooms />
+    @include('Admin/rooms/index')
 @endsection

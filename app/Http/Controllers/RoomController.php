@@ -2,120 +2,180 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class RoomController extends Controller
 {
-    public function __construct()
-    {
-        // Only master, admin, engineer allowed
-        $this->middleware('role:engineer|master');
-    }
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $rooms = Room::latest()->paginate(10);
-        return view('Admin.rooms', compact('rooms'));
+        $rooms = Room::orderBy('display_order')->paginate(10);
+        return view('Admin.rooms.index', compact('rooms'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Admin.rooms.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpg,png,jpeg|max:20480',
+            'type' => 'nullable|string',
             'description' => 'required|string',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
+            'category' => 'nullable|string',
+            'size' => 'nullable|string',
+            'capacity' => 'nullable|integer',
+            'bed_type' => 'nullable|string',
+            'badge' => 'nullable|string',
+            'best_season' => 'nullable|string',
+            'amenities' => 'nullable|string',
+            'images.*' => 'image|max:2048',
+            'is_popular' => 'boolean',
+            'is_featured' => 'boolean',
+            'display_order' => 'nullable|integer',
+            'is_active' => 'boolean',
         ]);
 
-        // Upload image
-        $path = $request->file('image')->store('rooms', 'public_direct');
-        $imagePath = 'uploads/' . $path;
+        // Process amenities (convert comma-separated to array)
+        $amenitiesArray = $request->amenities 
+            ? array_map('trim', explode(',', $request->amenities)) 
+            : [];
 
-        // Create room
+        // Process multiple images
+        $imagePaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('rooms', 'public');
+                $imagePaths[] = $path;
+            }
+        }
+
         $room = Room::create([
             'name' => $validated['name'],
-            'type' => $validated['type'],
-            'image' => $imagePath,
+            'type' => $validated['type'] ?? null,
             'description' => $validated['description'],
             'price' => $validated['price'],
+            'category' => $validated['category'] ?? null,
+            'size' => $validated['size'] ?? null,
+            'capacity' => $validated['capacity'] ?? null,
+            'bed_type' => $validated['bed_type'] ?? null,
+            'badge' => $validated['badge'] ?? null,
+            'best_season' => $validated['best_season'] ?? null,
+            'amenities' => $amenitiesArray,
+            'images' => $imagePaths,
+            'is_popular' => $request->boolean('is_popular'),
+            'is_featured' => $request->boolean('is_featured'),
+            'display_order' => $validated['display_order'] ?? 0,
+            'is_active' => $request->boolean('is_active', true),
         ]);
 
-        return redirect()->route('rooms.index')->with('success', 'Room created successfully.');
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        $room = Room::findOrFail($id);
-        return view('Admin.rooms.show', compact('room'));
+        return redirect()->route('Admin.rooms')
+            ->with('success', 'Room created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
+    public function edit(Room $room)
     {
-        $room = Room::findOrFail($id);
-        return view('Admin.rooms.update', compact('room'));
+        // Convert amenities array to comma-separated string for form
+        $room->amenities_string = is_array($room->amenities) 
+            ? implode(', ', $room->amenities) 
+            : $room->amenities;
+        
+        return view('admin.rooms.edit', compact('room'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Room $room)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'type' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:20480', // Make image optional for update
+            'type' => 'nullable|string',
             'description' => 'required|string',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
+            'category' => 'nullable|string',
+            'size' => 'nullable|string',
+            'capacity' => 'nullable|integer',
+            'bed_type' => 'nullable|string',
+            'badge' => 'nullable|string',
+            'best_season' => 'nullable|string',
+            'amenities' => 'nullable|string',
+            'images.*' => 'image|max:2048',
+            'existing_images' => 'array', // keep track of which existing images to retain
+            'is_popular' => 'boolean',
+            'is_featured' => 'boolean',
+            'display_order' => 'nullable|integer',
+            'is_active' => 'boolean',
         ]);
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('rooms', 'public_direct');
+        // Process amenities
+        $amenitiesArray = $request->amenities 
+            ? array_map('trim', explode(',', $request->amenities)) 
+            : [];
 
-            // Store only the filename/path for database
-            $imagePath = 'uploads/' . $path;
-
-            $room->update([
-                'name' => $request->name,
-                'type' => $request->type,
-               'image' => $imagePath, // Update image only if a new one was uploaded
-                'description' => $request->description,
-                'price' => $request->price,
-            ]);
-
-            return redirect()->route('rooms.index')->with('success', 'Room updated successfully.');
+        // Handle existing images removal
+        $existingImages = $room->images ?? [];
+        if ($request->has('existing_images')) {
+            // Keep only the images that are still checked
+            $existingImages = array_intersect($existingImages, $request->existing_images);
+        } else {
+            $existingImages = []; // if none selected, remove all
         }
+
+        // Upload new images
+        $newImagePaths = [];
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('rooms', 'public');
+                $newImagePaths[] = $path;
+            }
+        }
+
+        // Merge kept existing images with new ones
+        $allImages = array_merge($existingImages, $newImagePaths);
+
+        // Delete removed images from storage
+        $removedImages = array_diff($room->images ?? [], $existingImages);
+        foreach ($removedImages as $removedImage) {
+            Storage::disk('public')->delete($removedImage);
+        }
+
+        $room->update([
+            'name' => $validated['name'],
+            'type' => $validated['type'] ?? null,
+            'description' => $validated['description'],
+            'price' => $validated['price'],
+            'category' => $validated['category'] ?? null,
+            'size' => $validated['size'] ?? null,
+            'capacity' => $validated['capacity'] ?? null,
+            'bed_type' => $validated['bed_type'] ?? null,
+            'badge' => $validated['badge'] ?? null,
+            'best_season' => $validated['best_season'] ?? null,
+            'amenities' => $amenitiesArray,
+            'images' => $allImages,
+            'is_popular' => $request->boolean('is_popular'),
+            'is_featured' => $request->boolean('is_featured'),
+            'display_order' => $validated['display_order'] ?? 0,
+            'is_active' => $request->boolean('is_active', true),
+        ]);
+
+        return redirect()->route('admin.rooms.index')
+            ->with('success', 'Room updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function destroy(Room $room)
     {
-        $room = Room::findOrFail($id);
+        // Delete associated images
+        if ($room->images) {
+            foreach ($room->images as $image) {
+                Storage::disk('public')->delete($image);
+            }
+        }
         $room->delete();
-        return redirect()->route('rooms.index')->with('success', 'Room deleted successfully.');
+
+        return redirect()->route('admin.rooms.index')
+            ->with('success', 'Room deleted successfully.');
     }
 }

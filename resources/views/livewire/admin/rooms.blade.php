@@ -1,14 +1,13 @@
 <div x-data="{ showForm: false }">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Manage Rooms</h1>
-        <button type="button" @click.prevent="showForm = true" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg">Add New Room</button>
+        <button type="button" wire:click.prevent="resetForm" @click.prevent="showForm = true" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg">Add New Room</button>
     </div>
 
     @if(session()->has('message'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">{{ session('message') }}</div>
     @endif
 
-    <style>[x-cloak] { display: none !important; }</style>
     <div x-show="showForm" x-transition x-cloak class="bg-white rounded-xl shadow-sm p-6 mb-6">
         <h2 class="text-xl font-semibold mb-4">{{ $editingId ? 'Edit Room' : 'Create Room' }}</h2>
         <form wire:submit.prevent="save" class="space-y-4">
@@ -92,10 +91,11 @@
             </div>
             <div class="flex gap-2">
                 <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg">Save</button>
-                <button type="button" @click.prevent="showForm = false; $wire.cancel()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg">Cancel</button>
+                <button type="button" wire:click.prevent="cancel" @click.prevent="showForm = false" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg">Cancel</button>
             </div>
         </form>
     </div>
+    
 
     <div class="bg-white rounded-xl shadow-sm overflow-hidden">
         <table class="min-w-full divide-y divide-gray-200">
