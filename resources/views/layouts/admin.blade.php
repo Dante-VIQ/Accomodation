@@ -59,7 +59,7 @@
                     class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-amber-50 transition {{ request()->routeIs('admin.bookings') ? 'sidebar-active' : '' }}">
                     <i class="fas fa-calendar-check w-5"></i> Bookings
                 </a>
-                <a href="{{ route('rooms.index') }}"
+                <a href="/Admin/rooms"
                     class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-amber-50 transition {{ request()->routeIs('admin.rooms') ? 'sidebar-active' : '' }}">
                     <i class="fas fa-bed w-5"></i> Rooms
                 </a>
