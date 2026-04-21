@@ -1,4 +1,3 @@
-{{-- resources/views/rooms/index.blade.php --}}
 @extends('layouts.app')
 
 @section('title', 'Luxury Suites & Rooms | Villaveh Gameview Nakuru')

@@ -3,7 +3,7 @@
     
     {{-- Hero Section --}}
     <section class="relative h-[60vh] min-h-[500px] flex items-center justify-center bg-cover bg-center bg-no-repeat" 
-             style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.7)), url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600');">
+             style="background-image: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.7)), url('{{ asset('/images/18.JPG') }}');">
         <div class="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
             <span class="inline-block px-4 py-1 border border-amber-300/50 rounded-full text-amber-100 text-sm tracking-wider mb-4 backdrop-blur-sm">
                 ✦ OUR LEGACY ✦
@@ -23,7 +23,7 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="relative order-2 lg:order-1">
                     <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                        <img src="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1200" 
+                        <img src="{{ asset('/images/19.JPG') }}" 
                              alt="Villaveh Gameview Estate" 
                              class="w-full h-[500px] object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
@@ -161,24 +161,24 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-4">
                         <div class="rounded-xl overflow-hidden shadow-lg">
-                            <img src="https://images.pexels.com/photos/2609220/pexels-photo-2609220.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                            <img src="{{ asset('/images/30.JPG') }}" 
                                  alt="Luxury Dining" 
                                  class="w-full h-48 object-cover hover:scale-105 transition duration-500">
                         </div>
                         <div class="rounded-xl overflow-hidden shadow-lg">
-                            <img src="https://images.pexels.com/photos/2253839/pexels-photo-2253839.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                            <img src="{{ asset('/images/31.JPG') }}" 
                                  alt="Spa Treatment" 
                                  class="w-full h-48 object-cover hover:scale-105 transition duration-500">
                         </div>
                     </div>
                     <div class="space-y-4 pt-8">
                         <div class="rounded-xl overflow-hidden shadow-lg">
-                            <img src="https://images.pexels.com/photos/1462979/pexels-photo-1462979.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                            <img src="{{ asset('/images/74.JPG') }}" 
                                  alt="Safari Experience" 
                                  class="w-full h-48 object-cover hover:scale-105 transition duration-500">
                         </div>
                         <div class="rounded-xl overflow-hidden shadow-lg">
-                            <img src="https://images.pexels.com/photos/1648776/pexels-photo-1648776.jpeg?auto=compress&cs=tinysrgb&w=600" 
+                            <img src="{{ asset('/images/64.JPG') }}" 
                                  alt="Luxury Suite" 
                                  class="w-full h-48 object-cover hover:scale-105 transition duration-500">
                         </div>
@@ -189,7 +189,7 @@
     </section>
 
     {{-- Meet Our Team Section (Interactive Alpine.js) --}}
-    <section class="py-20 bg-gradient-to-br from-stone-900 to-stone-800 text-white">
+    {{-- <section class="py-20 bg-gradient-to-br from-stone-900 to-stone-800 text-white">
         <div class="container mx-auto px-6 md:px-12">
             <div class="text-center mb-12">
                 <span class="text-amber-400 tracking-wider text-sm uppercase">✦ The Heart of Villaveh ✦</span>
@@ -215,10 +215,10 @@
                 </template>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- Team Member Modal --}}
-    <div x-show="teamModalOpen" 
+    {{-- <div x-show="teamModalOpen" 
          x-transition.opacity.duration.300ms
          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
          x-cloak>
@@ -255,14 +255,14 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Sustainability & Conservation Section --}}
     <section class="py-20 bg-white">
         <div class="container mx-auto px-6 md:px-12">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="order-2 lg:order-1">
-                    <img src="https://images.pexels.com/photos/2442906/pexels-photo-2442906.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                    <img src="{{ asset('/images/20.JPG') }}" 
                          alt="Conservation Efforts" 
                          class="rounded-2xl shadow-2xl w-full">
                 </div>

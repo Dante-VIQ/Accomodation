@@ -97,7 +97,7 @@
 
         <div class="flex gap-2 mt-4">
             <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg">Update Room</button>
-            <a href="{{ route('admin.rooms.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg">Cancel</a>
+            <a href="{{ route('rooms.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-lg">Cancel</a>
         </div>
     </form>
 </div>

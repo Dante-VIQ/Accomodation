@@ -35,6 +35,6 @@ class BlogCard extends Component
 
         return view('livewire.blog-card', [
             'posts' => $posts,
-        ]);
+        ])->layout('layouts.app');
     }
 }

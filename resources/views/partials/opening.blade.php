@@ -49,7 +49,7 @@
     </div>
 @else
     {{-- Grand Opening Offer Section --}}
-    <div class="bg-gradient-to-br from-amber-900 to-amber-800 py-20 text-white">
+    <div class="bg-gradient-to-br from-amber-900 to-amber-800 py-20 text-white"  style="background-image: url('{{ asset('/images/73.JPG') }}'); background-blend-mode: overlay;">
         <div class="container mx-auto px-6 text-center">
             <div class="max-w-4xl mx-auto">
                 <span class="inline-block px-4 py-1 border border-amber-300/50 rounded-full text-amber-100 text-sm tracking-wider mb-4 backdrop-blur-sm">

@@ -90,3 +90,32 @@ x-cloak {
         margin-bottom: 1rem;
         line-height: 1.75;
     }
+
+    /* Smooth scroll behavior */
+    html {
+        scroll-behavior: smooth;
+    }
+    /* Custom hover translate effect */
+    .hover\:-translateY-2:hover {
+        transform: translateY(-4px);
+    }
+    /* Custom line clamp utilities if not using Tailwind's default */
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    /* Pagination styling (override default Tailwind) */
+    nav[role="navigation"] .relative {
+        @apply rounded-full;
+    }
+    nav[role="navigation"] span[aria-current="page"] span {
+        @apply bg-amber-600 text-white border-amber-600;
+    }

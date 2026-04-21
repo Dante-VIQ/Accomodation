@@ -77,7 +77,7 @@ Route::get('/book', function () {
 
 Route::get('blog/{blog}', ShowBlog::class)->name('blog-single');
 
-Route::get('/blog', BlogCard::class)->name('blog.index');
+// Route::get('/blog', BlogCard::class)->name('blog.index');
 Route::get('/blog/{id}', ShowBlog::class)->name('blog.show');
 
 // Contact routes

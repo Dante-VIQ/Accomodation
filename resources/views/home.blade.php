@@ -1,6 +1,6 @@
 <section id="home"
   class="relative h-[70vh] min-h-[100vh] flex items-center justify-center bg-cover bg-center bg-no-repeat py-20 lg:py-32"
-  style="background-image: url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-blend-mode: overlay;">
+  style="background-image: url('{{ asset('/images/77.JPG') }}'); background-blend-mode: overlay;">
   <div class="hero-overlay absolute inset-0 bg-black/40"></div>
   <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto py-0">
     <div
@@ -64,7 +64,8 @@
     <div class="text-center mb-14">
       <span class="text-amber-700 font-semibold tracking-widest text-sm uppercase">— Exquisite Stays —</span>
       <h2 class="serif-heading text-4xl md:text-5xl font-semibold mt-2 text-stone-800">Signature Suites</h2>
-      <p class="text-stone-500 max-w-2xl mx-auto mt-4">Each residence is individually curated with handcrafted details, Egyptian linens, and panoramic views.</p>
+      <p class="text-stone-500 max-w-2xl mx-auto mt-4">Each residence is individually curated with handcrafted details,
+        Egyptian linens, and panoramic views.</p>
     </div>
 
     <livewire:show-service />
@@ -113,7 +114,7 @@
         @endphp
 
         <img class="rounded-md shadow-2xl w-full object-cover h-[450px]"
-          src="{{ $room->image ?? asset('images/default-room.jpg') }}" alt="Luxury accommodation at Villaveh">
+          src="{{ asset('/images/20.JPG') }}" alt="Luxury accommodation at Villaveh">
         <div class="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur p-4 rounded shadow-lg hidden md:block">
           <i class="fas fa-star text-amber-500"></i><i class="fas fa-star text-amber-500"></i><i
             class="fas fa-star text-amber-500"></i><i class="fas fa-star text-amber-500"></i><i
@@ -219,7 +220,7 @@
           recommended.</p>
       </div>
       <div
-        class="bg-stone-900 relative min-h-[400px] flex items-center justify-center text-white p-8 text-center hidden lg:flex flex-col">
+        class=" relative min-h-[400px] flex items-center justify-center text-white p-8 text-center hidden lg:flex flex-col" style="background-image: url('{{ asset('/images/11.JPG') }}'); background-blend-mode: overlay; background-size: cover; width: 100%;">
         <i class="fas fa-phone-alt text-3xl text-amber-400 mb-6"></i>
         <h3 class="text-2xl font-semibold serif-heading">Instant Concierge</h3>
         <p class="mt-3 text-stone-300 max-w-xs">Call us directly for last-minute luxury availability</p>

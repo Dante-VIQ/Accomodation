@@ -2,7 +2,7 @@
     
     {{-- Hero Section --}}
     <section class="relative h-[50vh] min-h-[450px] flex items-center justify-center bg-cover bg-center bg-no-repeat" 
-             style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('{{ asset('images/services-hero.jpg') }}');">
+             style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('{{ asset('images/28.JPG') }}');">
         <div class="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
             <span class="inline-block px-4 py-1 border border-amber-300/50 rounded-full text-amber-100 text-sm tracking-wider mb-4 backdrop-blur-sm">
                 ✦ BESPOKE EXPERIENCES ✦

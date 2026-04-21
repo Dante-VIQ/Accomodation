@@ -50,7 +50,7 @@ class RoomController extends Controller
         $imagePaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('rooms', 'public');
+                $path = $image->store('rooms', 'public_direct');
                 $imagePaths[] = $path;
             }
         }
@@ -74,7 +74,7 @@ class RoomController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
-        return redirect()->route('Admin.rooms')
+        return redirect()->route('rooms')
             ->with('success', 'Room created successfully.');
     }
 
@@ -85,7 +85,7 @@ class RoomController extends Controller
             ? implode(', ', $room->amenities) 
             : $room->amenities;
         
-        return view('admin.rooms.edit', compact('room'));
+        return view('Admin.rooms.update', compact('room'));
     }
 
     public function update(Request $request, Room $room)
@@ -128,7 +128,7 @@ class RoomController extends Controller
         $newImagePaths = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('rooms', 'public');
+                $path = $image->store('rooms', 'public_direct');
                 $newImagePaths[] = $path;
             }
         }
@@ -139,7 +139,7 @@ class RoomController extends Controller
         // Delete removed images from storage
         $removedImages = array_diff($room->images ?? [], $existingImages);
         foreach ($removedImages as $removedImage) {
-            Storage::disk('public')->delete($removedImage);
+            Storage::disk('public_direct')->delete($removedImage);
         }
 
         $room->update([
@@ -161,7 +161,7 @@ class RoomController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
-        return redirect()->route('admin.rooms.index')
+        return redirect()->route('rooms.index')
             ->with('success', 'Room updated successfully.');
     }
 
@@ -170,7 +170,7 @@ class RoomController extends Controller
         // Delete associated images
         if ($room->images) {
             foreach ($room->images as $image) {
-                Storage::disk('public')->delete($image);
+                Storage::disk('public_direct')->delete($image);
             }
         }
         $room->delete();

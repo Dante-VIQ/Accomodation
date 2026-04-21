@@ -1,30 +1,35 @@
-<x-guest-layout>
+@extends('layouts.app')
+
+@section('content')
     <!-- Hero Section -->
-    <section class="relative max-w-5xl bg-hotel-navy text-white py-16">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="font-serif text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
-            <p class="text-xl max-w-2xl mx-auto">We're here to assist you with any inquiries about your stay at VillaVeh
-                GameView</p>
+    <section class="relative bg-gradient-to-r from-amber-50 to-stone-50 text-stone-800 py-20 md:py-28"  style="background-image: url('{{ asset('/images/75.JPG') }}'); background-blend-mode: overlay; height: 70vh; width: 100%;">
+  <div class="hero-overlay absolute inset-0 bg-black/40"></div>
+        <div class="container mx-auto px-6 md:px-12 text-center">
+            <span class="text-gray-300 font-semibold tracking-widest text-sm uppercase">— Connect With Us —</span>
+            <h1 class=" text-gray-300 serif-heading text-4xl md:text-5xl font-semibold mt-3 mb-4">Contact Villaveh</h1>
+            <div class="w-24 h-0.5 bg-amber-600 mx-auto mb-6"></div>
+            <p class="text-xl max-w-3xl mx-auto text-gray-300">We're here to assist you with any inquiries about your stay or to create a personalized experience at Villaveh Gameview</p>
         </div>
     </section>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-12">
+    <main class="container mx-auto px-6 md:px-12 py-10 md:py-28">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Contact Form -->
             <div>
-                <h2 class="font-serif text-3xl font-semibold text-hotel-navy mb-6">Get In Touch</h2>
-                <p class="text-gray-600 mb-8">Have questions about our accommodations, amenities, or special offers? Fill
+                <span class="text-amber-700 font-semibold tracking-widest text-sm uppercase">— Direct Communication —</span>
+                <h2 class="serif-heading text-3xl md:text-4xl font-semibold mt-3 mb-2 text-stone-800">Get In Touch</h2>
+                <p class="text-stone-600 mb-8">Have questions about our accommodations, amenities, or special offers? Fill
                     out the form below and our team will get back to you within 24 hours.</p>
 
                 <!-- Success Message (displayed after form submission) -->
                 @if (session('success'))
-                    <div id="form-success" class="mb-6 p-4 bg-green-50 text-green-700 rounded-lg border border-green-200">
+                    <div id="form-success" class="mb-6 p-4 bg-emerald-50 text-emerald-700 rounded-sm border border-emerald-200">
                         <div class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-0.5"></i>
+                            <i class="fas fa-check-circle text-emerald-600 text-xl mr-3 mt-0.5"></i>
                             <div>
-                                <p class="font-medium text-green-800">Message Sent Successfully!</p>
-                                <p class="text-green-700">{{ session('success') }}</p>
+                                <p class="font-semibold text-emerald-800">Message Sent Successfully!</p>
+                                <p class="text-emerald-700 text-sm mt-1">{{ session('success') }}</p>
                             </div>
                         </div>
                     </div>
@@ -32,12 +37,12 @@
 
                 <!-- Error Message -->
                 @if ($errors->any())
-                    <div class="mb-6 p-4 bg-red-50 text-red-700 rounded-lg border border-red-200">
+                    <div class="mb-6 p-4 bg-red-50 text-red-700 rounded-sm border border-red-200">
                         <div class="flex items-start">
-                            <i class="fas fa-exclamation-circle text-red-500 text-xl mr-3 mt-0.5"></i>
+                            <i class="fas fa-exclamation-circle text-red-600 text-xl mr-3 mt-0.5"></i>
                             <div>
-                                <p class="font-medium text-red-800">Please fix the following errors:</p>
-                                <ul class="list-disc list-inside mt-1">
+                                <p class="font-semibold text-red-800">Please fix the following errors:</p>
+                                <ul class="list-disc list-inside mt-2 text-sm space-y-1">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
@@ -53,18 +58,18 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="name" class="block text-gray-700 mb-2">Full Name *</label>
+                            <label for="name" class="block text-stone-700 font-medium mb-2">Full Name *</label>
                             <input type="text" id="name" name="name" value="{{ old('name') }}"
-                                class="w-full px-4 py-3 borde rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition"
+                                class="w-full px-4 py-3 border border-stone-300 rounded-sm bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                                 required>
                             @error('name')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
-                            <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
+                            <label for="phone" class="block text-stone-700 font-medium mb-2">Phone Number</label>
                             <input type="tel" id="phone" name="phone" value="{{ old('phone') }}"
-                                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition">
+                                class="w-full px-4 py-3 border border-stone-300 rounded-sm bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition">
                             @error('phone')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -72,9 +77,9 @@
                     </div>
 
                     <div>
-                        <label for="email" class="block text-gray-700 mb-2">Email Address *</label>
+                        <label for="email" class="block text-stone-700 font-medium mb-2">Email Address *</label>
                         <input type="email" id="email" name="email" value="{{ old('email') }}"
-                            class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition"
+                            class="w-full px-4 py-3 border border-stone-300 rounded-sm bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                             required>
                         @error('email')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -82,15 +87,10 @@
                     </div>
 
                     <div>
-                        <label for="subject" class="block text-gray-700 mb-2">Subject *</label>
+                        <label for="subject" class="block text-stone-700 font-medium mb-2">Subject *</label>
                         <select id="subject" name="subject"
-                            class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition"
+                            class="w-full px-4 py-3 border rounded-sm bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition {{ $errors->has('subject') ? 'border-red-300' : 'border-stone-300' }}"
                             required>
-                            @error('subject')
-                                border-red-300
-                            @else
-                                border-gray-300
-                            @enderror
                             <option value="">Select a subject</option>
                             <option value="Reservation Inquiry"
                                 {{ old('subject') == 'Reservation Inquiry' ? 'selected' : '' }}>Reservation Inquiry
@@ -112,9 +112,9 @@
                     </div>
 
                     <div>
-                        <label for="message" class="block text-gray-700 mb-2">Message *</label>
+                        <label for="message" class="block text-stone-700 font-medium mb-2">Message *</label>
                         <textarea id="message" name="message" rows="5"
-                            class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-hotel-gold focus:border-transparent transition"
+                            class="w-full px-4 py-3 border border-stone-300 rounded-sm bg-stone-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
                             required>{{ old('message') }}</textarea>
                         @error('message')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -139,7 +139,7 @@
                     @endif --}}
 
                     <button type="submit"
-                        class="w-full bg-hotel-gold text-white py-3 px-6 rounded-lg font-medium hover:bg-yellow-600 transition duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg"
+                        class="w-full bg-amber-800 hover:bg-amber-900 text-white py-4 px-6 rounded-sm font-semibold tracking-wide transition duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg text-lg"
                         id="submit-btn">
                         <i class="fas fa-paper-plane mr-2"></i>
                         <span id="submit-text">Send Message</span>
@@ -150,17 +150,17 @@
                 </form>
 
 
-                <div class="bg-hotel-navy text-white rounded-xl p-6 shadow-lg mt-10">
-                    <h3 class="font-serif text-2xl font-semibold mb-4 flex items-center">
-                        <i class="fas fa-headset text-hotel-gold mr-3"></i>Need Immediate Assistance?
+                <div class="bg-stone-800 text-white rounded-sm p-8 shadow-lg mt-12">
+                    <h3 class="serif-heading text-2xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-phone-alt text-amber-400 mr-3"></i>Instant Concierge
                     </h3>
-                    <p class="mb-4">For urgent matters or same-day reservations, please call our front desk directly.
+                    <p class="mb-6 text-stone-200">For urgent matters or same-day reservations, please call our concierge team directly.
                     </p>
-                    <div class="flex items-center bg-hotel-brown/30 p-4 rounded-lg">
-                        <i class="fas fa-phone-volume text-hotel-gold text-2xl mr-3"></i>
+                    <div class="flex items-center bg-amber-700/20 p-6 rounded-sm border border-amber-600/30">
+                        <i class="fas fa-phone-volume text-amber-400 text-3xl mr-4"></i>
                         <div>
-                            <p class="text-sm opacity-80">Call us now</p>
-                            <span class="text-2xl font-bold">+254 110474109</span>
+                            <p class="text-sm opacity-80 text-amber-100">Call us now</p>
+                            <span class="text-3xl font-bold text-amber-300">+254 110474109</span>
                         </div>
                     </div>
                 </div>
@@ -168,39 +168,32 @@
 
             <!-- Contact Information & Map -->
             <div>
-                <section class="py-16 bg-hotel-cream">
-                    <div class="container flex mx-auto px-6 lg:px-12">
+                <section class="">
+                    <div class="flex flex-col">
                         <!-- Section Header -->
 
 
                         <div class="flex flex-col gap-8 items-stretch">
 
-                            <div class="text-center mb-12 max-w-3xl mx-auto">
-                                <div class="flex items-center justify-center mb-4">
-                                    <div class="h-px w-8 bg-hotel-gold mr-4"></div>
-                                    <h2 class="text-sm uppercase tracking-widest text-hotel-brown font-light">Location
-                                    </h2>
-                                    <div class="h-px w-8 bg-hotel-gold ml-4"></div>
-                                </div>
-                                {{-- <h3 class="text-4xl font-serif font-light text-hotel-navy mb-6">Prime Location & Access</h3>
-                            <p class="text-lg text-gray-600">Nestled in the heart of the city, our hotel offers
-                                convenient access to major attractions and transportation hubs.</p> --}}
+                            <div class="text-center mb-12">
+                                <span class="text-amber-700 font-semibold tracking-widest text-sm uppercase">— Our Location —</span>
+                                <h2 class="serif-heading text-3xl md:text-4xl font-semibold mt-3 text-stone-800">Visit Villaveh Gameview</h2>
                             </div>
                             <!-- Map Container -->
-                            <div class="rounded-2xl overflow-hidden shadow-2xl h-[500px]">
+                            <div class="rounded-sm overflow-hidden shadow-2xl h-[500px] mb-8">
                                 <div id="hotel-map"
-                                    class="w-full h-full bg-gradient-to-br from-hotel-navy/10 to-hotel-brown/10">
+                                    class="w-full h-full bg-gradient-to-br from-stone-200 to-stone-300">
                                     <!-- Map will be loaded here -->
                                 </div>
                             </div>
 
                             <!-- Location Info & Directions -->
-                            <div class="bg-white rounded-2xl p-8 shadow-xl">
+                            <div class="bg-white rounded-sm p-8 shadow-xl border border-stone-200">
                                 <div class="mb-8">
-                                    <h4 class="text-2xl font-serif text-hotel-navy mb-4">Hotel Location</h4>
+                                    <h4 class="text-2xl font-semibold text-stone-800 mb-4">Hotel Location</h4>
                                     <div class="space-y-4">
                                         <div class="flex items-start">
-                                            <svg class="w-6 h-6 text-hotel-gold mr-4 mt-1" fill="none"
+                                            <svg class="w-6 h-6 text-amber-700 mr-4 mt-1" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -208,51 +201,50 @@
                                                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
                                             <div>
-                                                <p class="font-medium text-hotel-navy">Address</p>
-                                                <p class="text-gray-600">Free Area, Nakuru City, Kenya</p>
-                                                <div class="mt-1">
+                                                <p class="font-semibold text-stone-800">Address</p>
+                                                <p class="text-stone-600">Free Area, Nakuru City, Kenya</p>
+                                                <div class="mt-2">
                                                     <span
-                                                        class="inline-block bg-hotel-gold/10 text-hotel-gold text-xs px-2 py-1 rounded font-mono">
+                                                        class="inline-block bg-amber-50 text-amber-800 text-xs px-3 py-1 rounded-sm font-mono border border-amber-200">
                                                         Plus Code: M4PJ+XRG Nakuru
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="flex items-start">
-                                            <svg class="w-6 h-6 text-hotel-gold mr-4 mt-1" fill="none"
+                                            <svg class="w-6 h-6 text-amber-700 mr-4 mt-1" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                             </svg>
                                             <div>
-                                                <p class="font-medium text-hotel-navy">24/7 Concierge</p>
-                                                <p class="text-gray-600">Available for assistance anytime</p>
+                                                <p class="font-semibold text-stone-800">24/7 Concierge</p>
+                                                <p class="text-stone-600">Available for assistance anytime</p>
                                             </div>
                                         </div>
                                         <div class="flex items-start">
-                                            <svg class="w-6 h-6 text-hotel-gold mr-4 mt-1" fill="none"
+                                            <svg class="w-6 h-6 text-amber-700 mr-4 mt-1" fill="none"
                                                 stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
                                             </svg>
                                             <div>
-                                                <p class="font-medium text-hotel-navy">Transportation</p>
-                                                <p class="text-gray-600">Valet parking & limousine service available
-                                                </p>
+                                                <p class="font-semibold text-stone-800">Transportation</p>
+                                                <p class="text-stone-600">Valet parking & limousine service available</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Quick Directions -->
-                                <div class="mb-8">
-                                    <h4 class="text-xl font-medium text-hotel-navy mb-4">Get Directions</h4>
+                                <div class="mb-8 pt-8 border-t border-stone-200">
+                                    <h4 class="text-lg font-semibold text-stone-800 mb-4">Get Directions</h4>
                                     <div class="space-y-4">
                                         <input type="text" id="start-address"
                                             placeholder="Enter your starting address"
-                                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-hotel-gold focus:border-transparent">
+                                            class="w-full px-4 py-3 border border-stone-300 rounded-sm bg-stone-50 focus:ring-2 focus:ring-amber-500 focus:border-transparent">
                                         <button onclick="openDirections()"
-                                            class="w-full bg-hotel-gold text-white py-3 px-6 rounded-lg font-medium hover:bg-yellow-600 transition duration-300 flex items-center justify-center gap-2">
+                                            class="w-full bg-amber-800 hover:bg-amber-900 text-white py-3 px-6 rounded-sm font-medium transition duration-300 flex items-center justify-center gap-2">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -265,10 +257,10 @@
 
                                 <!-- Map App Buttons -->
                                 <div class="space-y-3">
-                                    <h5 class="text-lg font-medium text-hotel-navy mb-3">Open in Map App</h5>
+                                    <h5 class="text-lg font-semibold text-stone-800 mb-3">Open in Map App</h5>
                                     <div class="grid grid-cols-2 gap-3">
                                         <button onclick="openGoogleMapsWithPlusCode()"
-                                            class="bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-50 transition duration-300 flex items-center justify-center gap-2 text-sm">
+                                            class="bg-white border border-stone-300 text-stone-700 py-3 px-4 rounded-sm font-medium hover:bg-stone-50 transition duration-300 flex items-center justify-center gap-2 text-sm">
                                             <svg class="w-5 h-5" viewBox="0 0 24 24">
                                                 <path fill="#4285F4"
                                                     d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -282,7 +274,7 @@
                                             Google Maps
                                         </button>
                                         <button onclick="openAppleMapsWithPlusCode()"
-                                            class="bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition duration-300 flex items-center justify-center gap-2 text-sm">
+                                            class="bg-stone-900 text-white py-3 px-4 rounded-sm font-medium hover:bg-stone-800 transition duration-300 flex items-center justify-center gap-2 text-sm">
                                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path
                                                     d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
@@ -292,7 +284,7 @@
                                             Apple Maps
                                         </button>
                                         <button onclick="openWazeWithPlusCode()"
-                                            class="bg-[#33CCFF] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#29b3e5] transition duration-300 flex items-center justify-center gap-2 text-sm">
+                                            class="bg-[#33CCFF] text-white py-3 px-4 rounded-sm font-medium hover:bg-[#29b3e5] transition duration-300 flex items-center justify-center gap-2 text-sm">
                                             <svg class="w-5 h-5" fill="white" viewBox="0 0 24 24">
                                                 <path
                                                     d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22.5C6.201 22.5 1.5 17.799 1.5 12S6.201 1.5 12 1.5 22.5 6.201 22.5 12 17.799 22.5 12 22.5z" />
@@ -304,7 +296,7 @@
                                             Waze
                                         </button>
                                         <button onclick="openOpenStreetMapWithPlusCode()"
-                                            class="bg-[#7EBC6F] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#6CA85E] transition duration-300 flex items-center justify-center gap-2 text-sm">
+                                            class="bg-[#7EBC6F] text-white py-3 px-4 rounded-sm font-medium hover:bg-[#6CA85E] transition duration-300 flex items-center justify-center gap-2 text-sm">
                                             <svg class="w-5 h-5" fill="white" viewBox="0 0 24 24">
                                                 <path
                                                     d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
@@ -317,14 +309,14 @@
                                     </div>
 
                                     <!-- Plus Code Display -->
-                                    <div class="mt-6 pt-6 border-t border-gray-200">
+                                    <div class="mt-6 pt-6 border-t border-stone-200">
                                         <div class="flex items-center justify-between">
                                             <div>
-                                                <p class="text-sm font-medium text-hotel-navy">Location Plus Code</p>
-                                                <p class="text-lg font-mono text-gray-800 mt-1">M4PJ+XRG Nakuru</p>
+                                                <p class="text-sm font-semibold text-stone-800">Location Plus Code</p>
+                                                <p class="text-lg font-mono text-stone-900 mt-2 font-bold">M4PJ+XRG Nakuru</p>
                                             </div>
                                             <button onclick="copyPlusCode()"
-                                                class="text-hotel-gold hover:text-yellow-600 transition flex items-center gap-2">
+                                                class="text-amber-700 hover:text-amber-800 transition flex items-center gap-2 font-medium">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -334,8 +326,7 @@
                                                 Copy
                                             </button>
                                         </div>
-                                        <p class="text-xs text-gray-500 mt-2">Share this Plus Code for precise
-                                            navigation</p>
+                                        <p class="text-xs text-stone-500 mt-2">Share this Plus Code for precise navigation</p>
                                     </div>
                                 </div>
                             </div>
@@ -348,5 +339,5 @@
             </div>
         </div>
     </main>
-</x-guest-layout>
+@endsection
 
