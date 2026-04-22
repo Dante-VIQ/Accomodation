@@ -74,7 +74,7 @@ class RoomController extends Controller
             'is_active' => $request->boolean('is_active', true),
         ]);
 
-        return redirect()->route('rooms')
+        return redirect()->route('rooms.index')
             ->with('success', 'Room created successfully.');
     }
 
